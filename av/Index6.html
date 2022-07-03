@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+    <style>
+        .input {
+            color: red;
+        }
+
+        .input-back {
+            color: red;
+            background-color: yellow;
+        }
+    </style>
+
+    <script>
+        //window.onload = function () {
+        //    alert('I am in window on load');
+        //}
+
+        var headers = [
+            'company',
+            'Contat',
+            'Country'
+
+        ]
+
+        var data = [
+
+            {
+                company: 'zensor',
+                contact: 'yogesh',
+                country: 'Germany'
+            },
+            {
+                company: 'accenture',
+                contact: 'Ranjit',
+                country: 'USA'
+            },
+            {
+                company: 'cybage',
+                contact: 'Nivant',
+                country: 'UK'
+            }
+
+
+        ]
+
+        window.addEventListener('load', function () {
+            var innerHTML = `
+                            <div>
+                             ${Form()}
+                            </div>`
+
+            var body = this.document.querySelector("#app");
+            body.innerHTML = innerHTML;
+        })
+        //<label for="lname">Last name:</label>
+        //     < input type = "text" id = "fname" name = "fname" value = "John" >
+        //<input type="text" id="lname" name="lname" value="Doe">
+        function Form() {
+            return `
+                             <form action="/action_page.php">
+                                ${Label("fname", "First name:")}<br>
+                                 ${TextBox('fname', 'fname', 'john', 'input')}<br>
+                                 ${Label("lname", "Last name:")}<br>
+                                ${TextBox('lname', 'lname', 'Doe', 'input input-back')}
+                                <br><br>
+                                  ${Button({ value: 'Submit', onclick: "buttonOnClick()" })}
+                             </form>
+${Table()}
+
+  
+
+
+
+
+                        `
+        }
+
+        function buttonOnClick() {
+            debugger;
+            var ele = event.target;
+            alert(ele.value);
+        }
+
+        function Label(forName, text) {
+            return `
+                            <label for="${forName}">${text}</label>
+                       `
+        }
+
+        function TextBox(id, name, value, className) {
+            return `
+                            <input type="text" class="${className}"  id="${id}" name="${name}" value="${value}">
+                       `
+        }
+
+        function Button(cops) {
+            return `
+                           <input type="button" onclick="${cops.onclick}" value="${cops.value}">
+                       `
+        }
+
+        function Table(cops) {
+            return `
+                          <table>
+            ${TRH()}
+           ${TRD()}
+             
+        </table>
+                       `
+        }
+
+        
+ 
+        function TRH() {
+            return `
+                     <tr>
+                ${headers.map(function (e) {
+                    return TH({text: e})
+                }).join('')}
+                
+               
+            </tr>
+`
+        }
+
+        function TRD(props) {
+            debugger;
+            return `
+
+                ${data.map(function (e) {
+                    return TR(e)
+                }).join('')}
+              
+`
+        }
+
+
+        function TR(e) {
+       return     `
+            <tr>
+<td>${e.company}</td>
+<td>${e.contact}</td>
+<td>${e.country}</td>
+</tr>
+`
+        }
+        function TD(props) {
+            return `
+            <td>${props.text}</td>
+`
+        }
+
+
+        function TH(props) {
+            return `
+            <th>${props.text}</th>
+`
+        }
+
+            //document.onload = function () {
+            //    alert('I am in document on load');
+            //}
+    </script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+
+
+
+   
+
+         
+
+      
+    </body>
+</html>
