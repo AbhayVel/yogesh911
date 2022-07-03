@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style>
+        .input{
+            color: red;
+        }
+
+        .input-back {
+            color: red;
+            background-color: yellow;
+        }
+
+
+    </style>
+
+    <script>
+        //window.onload = function () {
+        //    alert('I am in window on load');
+        //}
+
+        window.addEventListener('load', function () {
+            var innerHTML = `
+                        <div>
+                         ${Form()}
+                        </div>`
+
+            var body = this.document.querySelector("#app");
+            body.innerHTML = innerHTML;
+        })
+        //<label for="lname">Last name:</label>
+       //     < input type = "text" id = "fname" name = "fname" value = "John" >
+        //<input type="text" id="lname" name="lname" value="Doe">
+        function Form() {
+            return `
+                         <form action="/action_page.php">
+                            ${Label("fname", "First name:")}<br>
+                             ${TextBox('fname', 'fname', 'john','input')}<br>
+                             ${Label("lname", "Last name:")}<br>
+                            ${TextBox('lname', 'lname', 'Doe', 'input input-back')}
+                            <br><br>
+                              ${Button({ value: 'Submit', onclick: "buttonOnClick()" })}
+                         </form>
+                    `
+        }
+
+        function buttonOnClick() {
+            debugger;
+            var ele = event.target;
+            alert(ele.value);
+        }
+
+        function Label(forName,text) {
+            return `
+                        <label for="${forName}">${text}</label>
+                   `
+        }
+
+        function TextBox(id, name,value,className) {
+            return `
+                        <input type="text" class="${className}"  id="${id}" name="${name}" value="${value}">
+                   `
+        }
+
+        function Button(cops) {
+            return `
+                       <input type="button" onclick="${cops.onclick}" value="${cops.value}">
+                   `
+        }
+
+
+        //document.onload = function () {
+        //    alert('I am in document on load');
+        //}
+    </script>
+</head>
+<body>
+    <div id="app">
+
+    </div>
+    
+
+
+
+
+
+</body>
+</html>
