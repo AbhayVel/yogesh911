@@ -28,7 +28,7 @@ callMe();
 console.log(j);
 
 j = 23;
-function callMe() {
+function callMe() { //Name function 
     //var/let/const=> defining scope -> //nearest curly 
     // i = 3;//global scope 
     var j = 12;//hoisting 

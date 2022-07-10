@@ -24,6 +24,6 @@ function factRec(a) {
 }
 var obj = {}
 let funTem = fact.bind(obj);
-console.log(funTem(5));
+console.log(funTem(5,2,2,2));
 console.log(factMinus.apply(obj,[5]));
-console.log(factRec.call(obj,5));
+console.log(factRec.call(obj,5,4,3));
