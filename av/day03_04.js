@@ -15,6 +15,8 @@ callMe = (fun) => //fun is consider as call back function
   //  console.log(k);
 }
 
+
+
 callMe(() => {
     console.log("I am in call back");
 });
