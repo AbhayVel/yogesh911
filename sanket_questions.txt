@@ -1,0 +1,17 @@
+1. const person= {
+    firstName:"John", 
+    lastName:"Doe", 
+    age:50, 
+    eyeColor:"blue",
+    findAdult : function() {
+        if( this.age >= 18){
+            console.log ( this.firstName + " Can vote" )
+        }
+    }
+};
+console.log(person.findAdult())
+//returns
+//John Can vote
+//undefined 
+
+why undefind ???
