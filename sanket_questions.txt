@@ -15,3 +15,7 @@ console.log(person.findAdult())
 //undefined 
 
 why undefind ???
+
+2. How to check object equality and what are the type .. ?
+3. diff object.create method vs object constructor ..?
+ ref . https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object

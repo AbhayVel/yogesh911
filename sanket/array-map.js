@@ -1,8 +1,5 @@
-const ages = [10,22,41,21,18,9,11];
+const fruits = ["0Banana", "1Orange", "2Lemon", "3Apple", "4Mango"];
+const citrus = fruits.slice( 2, 4);
 
-console.table(ages.filter(checkAdult));
-
-function checkAdult(age){
-    return age > 18;
-}
+console.log(citrus);
 
