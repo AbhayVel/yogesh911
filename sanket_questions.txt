@@ -1,21 +1,8 @@
-1. const person= {
-    firstName:"John", 
-    lastName:"Doe", 
-    age:50, 
-    eyeColor:"blue",
-    findAdult : function() {
-        if( this.age >= 18){
-            console.log ( this.firstName + " Can vote" )
-        }
-    }
-};
-console.log(person.findAdult())
-//returns
-//John Can vote
-//undefined 
+undefined: It means a variable declared, but no value has been assigned a value.
 
-why undefind ???
+null: Whereas, null in JavaScript is an assignment value. You can assign it to a variable.
 
-2. How to check object equality and what are the type .. ?
-3. diff object.create method vs object constructor ..?
- ref . https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object
+null == undefined
+true
+null === undefined
+false
