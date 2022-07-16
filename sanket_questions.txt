@@ -1,0 +1,8 @@
+undefined: It means a variable declared, but no value has been assigned a value.
+
+null: Whereas, null in JavaScript is an assignment value. You can assign it to a variable.
+
+null == undefined
+true
+null === undefined
+false
