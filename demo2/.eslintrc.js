@@ -37,7 +37,8 @@ module.exports = {
   rules: {
     'import/no-cycle': ['error', { maxDepth: 1 }],
     'import/order': ['error', { alphabetize: { order: 'asc' } }],
-    'import/prefer-default-export': 'off',
+      'import/prefer-default-export': 'off',
+    "no-else-return": 'off',
     'no-param-reassign': [
       'error',
       // Immer - https://github.com/immerjs/immer/issues/189#issuecomment-703083451
