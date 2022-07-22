@@ -3,104 +3,65 @@ import React, { useState } from 'react';
 export const StudentAttendance = () => {
 
     const [headers, setHeader] = useState([
-        {
-            displayName: "Id",
-            columnName: "id",
-            isSortable: true,
-            type: 'num'
-        },
-        {
-            displayName: "Sanket",
-            columnName: "name",
-            isSortable: true,
-            type: 'ci'
-        },
-        {
-            displayName: "Subject",
-            columnName: "subject",
-            isSortable: true,
-            type: 'cs'
-        },
-        {
-            displayName: "Fees",
-            columnName: "fees",
-            isSortable: true,
-            type: 'num'
-        },
-        {
-            displayName: "DOJ",
-            columnName: "doj",
-            isSortable: true,
-            type: 'date'
-        },
-        {
-            displayName: "Action",
-            columnName: "Action",
-            isSortable: false
-        }
-         
+        "studentId",
+        "studentName",
+        "Calender",
+        "Status",
+        "Teachers Note",
+        "Participation"
     ])
-
-    const [studentData, setStudentData] = useState([
+    const [attendanceData, setStudentData] = useState([
         {
             id: 1,
             name: 'Komal',
-            subject: 'Javascript',
-            fees: 21000,
-            doj: '01-01-2022'
+            aDate: '01-01-2022',
+            Status: "p",
+            TeachersNote: "sick",
+            Participation: 100
         },
         {
             id: 2,
             name: 'Nivant',
-            subject: 'React',
-            fees: 25000,
-            doj: '01-02-2022'
+            aDate: '01-02-2022',
+            Status: "p",
+            TeachersNote: "sick",
+            Participation: 100
         },
         {
             id: 3,
             name: 'Rajit',
-            subject: 'Angular',
-            fees: 29000,
-            doj: '01-02-2022'
+            aDate: '01-02-2022',
+            Status: "p",
+            TeachersNote: "sick",
+            Participation: 100
         },
         {
             id: 4,
             name: 'sanket',
-            subject: 'MVC',
-            fees: 29000,
-            doj: '01-02-2022'
+            aDate: '01-02-2022',
+            Status: "p",
+            TeachersNote: "sick",
+            Participation: 100
         },
         {
             id: 5,
             name: 'Yogesh',
-            subject: 'java',
-            fees: 39000,
-            doj: '02-02-2022'
+            aDate: '02-02-2022',
+            Status: "p",
+            TeachersNote: "sick",
+            Participation: 100
         },
-
     ])
-    const [sortOrder, setSortOrder] = useState(1);
-    const sortData = (e: any) => {
-        const target: any = e?.target;
-        const columnName = target.getAttribute("ele-name");
-        const columnType = target.getAttribute("ele-type");
-         
-        setSortOrder(sortOrder * -1);
-        studentData.sort((a: any, b: any) => {
 
-            if (columnType === 'ci') {
-                return a[columnName].toUpperCase() > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
-            } else if (columnType === 'date') {
-                return a[columnName] > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
-            }
-                return a[columnName] > b[columnName] ? -1 * sortOrder : 1 * sortOrder;
-			 
-           
-        })
-        const d = [...studentData]
-        setStudentData(d);
-	}
+    const sortData = (e:any) =>{
+        // const target: any =e?.target;
+        // attendanceData.sort((a,b)=>{
+        //     return a.id > b.id ? -1:1;
+        // })
 
+        alert(e)
+            
+    }
     return (
         <div className="container-xxl position-relative bg-white d-flex p-0">
             <div className="sidebar pe-4 pb-3">
@@ -137,7 +98,6 @@ export const StudentAttendance = () => {
                     </div>
                 </nav>
             </div>
-           
             <div className="content">
                 <nav className="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                     <a href="index.html" className="navbar-brand d-flex d-lg-none me-4">
@@ -160,89 +120,78 @@ export const StudentAttendance = () => {
                                 <small>15 minutes ago</small>
                             </a>
                             <hr className="dropdown-divider" />
-                                <a href="index.html" className="dropdown-item">
-                                    <h6 className="fw-normal mb-0">New user added</h6>
-                                    <small>15 minutes ago</small>
-                                </a>
-                                <hr className="dropdown-divider" />
-                                    <a href="index.html" className="dropdown-item">
-                                        <h6 className="fw-normal mb-0">Password changed</h6>
-                                        <small>15 minutes ago</small>
-                                    </a>
-                                    <hr className="dropdown-divider" />
-                                        <a href="index.html" className="dropdown-item text-center">See all notifications</a>
+                            <a href="index.html" className="dropdown-item">
+                                <h6 className="fw-normal mb-0">New user added</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr className="dropdown-divider" />
+                            <a href="index.html" className="dropdown-item">
+                                <h6 className="fw-normal mb-0">Password changed</h6>
+                                <small>15 minutes ago</small>
+                            </a>
+                            <hr className="dropdown-divider" />
+                            <a href="index.html" className="dropdown-item text-center">See all notifications</a>
                         </div>
                     </div>
-                    </nav>
+                </nav>
 
-            <div className="container-fluid pt-4 px-4">
-                <div className="bg-light text-center rounded p-4">
-                    <div className="d-flex align-items-center justify-content-between mb-4">
-                        <h6 className="mb-0">Recent Salse</h6>
-                        <a href="index.html">Show All</a>
-                    </div>
-                    <div className="table-responsive">
-                        <table className="table text-start align-middle table-bordered table-hover mb-0">
+                <div className="container-fluid pt-4 px-4">
+                    <div className="bg-light text-center rounded p-4">
+                        <div className="d-flex align-items-center justify-content-between mb-4">
+                            <h6 className="mb-0">Student Attendance</h6>
+                            <a href="index.html">Show All</a>
+                        </div>
+                        <div className="table-responsive">
+                            <table className="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
                                     <tr className="text-dark">
-                                        <th scope="col">input</th>
-                                    {
+                                        {
                                             headers.map((e) => {
-
-                                                if (e.isSortable===true) {
-                                                    return (
-                                                        <th ele-name={e.columnName} ele-type={e.type }  onClick={sortData}>{e.displayName}</th>
-                                                    )
-                                                }
-                                               
-                                                    return (
-                                                        <th name-ele={e.columnName} >{e.displayName}</th>
-                                                    )
-												 
-                                               
-											})
-                                    }
+                                                return (
+                                                    <th name-ele={e} onClick={sortData}>{e}</th>
+                                                )
+                                            })
+                                        }
 
                                     </tr>
-                              
-                            </thead>
+
+                                </thead>
                                 <tbody>
 
                                     {
-                                        studentData.map((s) => {
+                                        attendanceData.map((e) => {
                                             return (
                                                 <tr>
-                                                    <td><input className="form-check-input" type="checkbox" /></td>
-                                                    <td>{ s.id}</td>
-                                                    <td>{s.name}</td>
-                                                    <td>{ s.subject}</td>
-                                                    <td>{ s.fees}</td>
-                                                    <td>{ s.doj}</td>
-                                                    <td><a className="btn btn-sm btn-primary" href="index.html">Edit</a> <a className="btn btn-sm btn-danger" href="index.html">Delete</a></td>
+                                                    <td>{e.id}</td>
+                                                    <td>{e.name}</td>
+                                                    <td>{e.aDate}</td>
+                                                    <td>{e.Status}</td>
+                                                    <td>{e.TeachersNote}</td>
+                                                    <td>{e.Participation}</td>
                                                 </tr>
-
                                             )
-                                        })									  
+                                        })
                                     }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div className='mt-4'>
-                    <ul className="pagination">
-                        <li className="page-item disabled"><a className="page-link" href="index.html">Previous</a></li>
-                        <li className="page-item"><a className="page-link" href="index.html">1</a></li>
-                        <li className="page-item"><a className="page-link" href="index.html">2</a></li>
-                        <li className="page-item"><a className="page-link" href="index.html">3</a></li>
-                        <li className="page-item"><a className="page-link" href="index.html">Next</a></li>
-                    </ul>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className='mt-4'>
+                            <ul className="pagination">
+                                <li className="page-item disabled"><a className="page-link" href="index.html">Previous</a></li>
+                                <li className="page-item"><a className="page-link" href="index.html">1</a></li>
+                                <li className="page-item"><a className="page-link" href="index.html">2</a></li>
+                                <li className="page-item"><a className="page-link" href="index.html">3</a></li>
+                                <li className="page-item"><a className="page-link" href="index.html">Next</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
     )
 }
-                   
+
 
 
 
