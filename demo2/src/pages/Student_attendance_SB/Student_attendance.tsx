@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export const Student = () => {
+export const StudentAttendance = () => {
 
     const [headers, setHeader] = useState([
         {
@@ -10,7 +10,7 @@ export const Student = () => {
             type: 'num'
         },
         {
-            displayName: "Full Name",
+            displayName: "Sanket",
             columnName: "name",
             isSortable: true,
             type: 'ci'
