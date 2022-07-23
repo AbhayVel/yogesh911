@@ -1,198 +1,123 @@
 import React, { useState } from 'react';
 
-function convertDate(str: any) {
-    if (str instanceof Date) {
-        return str;
-    }
-    const dateArray = str.split('-');
-    if (dateArray.length === 3) {
 
-        return new Date((+dateArray[2]), (+dateArray[1]) - 1, (+dateArray[0]), 0, 0, 0, 0);
-    }
-    return "not a Date"
-}
 
-export const Student = () => {
+export const Subject = () => {
 
     const [headers, setHeader] = useState([
         {
-            displayName: "Id",
-            columnName: "id",
+            displayName: "Sub Code",
+            columnName: "subcode",
             isSortable: true,
-            type: 'num',
-            isSearchable: true,
-            searchs: [
-                {
-                    columnName: "id",
-                    value: '',
-                    type: 'num'
-
-				}
-
-            ]
-
+            type: 'num'
         },
         {
-            displayName: "Full Name",
-            columnName: "name",
+            displayName: "Subject Name",
+            columnName: "subname",
             isSortable: true,
-            type: 'ci',
-            isSearchable: true,
-            searchs: [
-                {
-                    columnName: "name",
-                    value: '',
-                    type: 'ci'
-
-                }
-
-            ]
+            type: 'ci'
         },
-        {
-            displayName: "Subject",
-            columnName: "subject",
-            isSortable: true,
-            type: 'cs',
-            searchs: [
-                {
-                    columnName: "subject",
-                    value: '',
-                    type: 'ci'
-
-                }
-
-            ]
-        },
-        {
-            displayName: "Fees",
-            columnName: "fees",
-            isSortable: true,
-            type: 'num',
-            isSearchable: true,
-            searchs: [
-                {
-                    columnName: "fees",
-                    value: '',
-                    type: 'num'
-
-                },
-                {
-                    columnName: "fees",
-                    value: '',
-                    type: 'num'
-
-                }
-
-            ]
-        },
-        {
-            displayName: "DOJ",
-            columnName: "doj",
-            isSortable: true,
-            type: 'date',
-            isSearchable: true,
-            searchs: [
-                {
-                    columnName: "doj",
-                    value: '',
-                    type: 'num'
-
-                }
-
-            ]
-        },
+        // {
+        //     displayName: "Subject",
+        //     columnName: "subject",
+        //     isSortable: true,
+        //     type: 'cs'
+        // },
+        // {
+        //     displayName: "Fees",
+        //     columnName: "fees",
+        //     isSortable: true,
+        //     type: 'num'
+        // },
+        // {
+        //     displayName: "DOJ",
+        //     columnName: "doj",
+        //     isSortable: true,
+        //     type: 'date'
+        // },
         {
             displayName: "Action",
             columnName: "Action",
-            isSortable: false,
-            isSearchable: false
+            isSortable: false
         }
          
     ])
-    const [fullData, setFullData] = useState([
+
+    const [subjectData, setSubjectData] = useState([
         {
-            id: 1,
-            name: 'Komal',
-            subject: 'Javascript',
-            fees: 21000,
-            doj: '01-03-2022'
+            subcode: 1,
+            subname: 'English',
+            // subject: 'Javascript',
+            // fees: 21000,
+            // doj: '01-01-2022'
         },
         {
-            id: 2,
-            name: 'Nivant',
-            subject: 'React',
-            fees: 25000,
-            doj: '01-02-2021'
+            subcode: 2,
+            subname: 'Maths',
+            // subject: 'React',
+            // fees: 25000,
+            // doj: '01-02-2022'
         },
         {
-            id: 3,
-            name: 'Rajit',
-            subject: 'Angular',
-            fees: 29000,
-            doj: '13-02-2022'
+            subcode: 3,
+            subname: 'Hindi'
+
         },
         {
-            id: 4,
-            name: 'sanket',
-            subject: 'MVC',
-            fees: 29000,
-            doj: '15-02-2022'
+            subcode: 4,
+            subname: 'Marathi'
+
         },
         {
-            id: 5,
-            name: 'Yogesh',
-            subject: 'java',
-            fees: 39000,
-            doj: '02-02-2022'
-        },
+            subcode: 5,
+            subname: 'Science'
+
+        }
+        // {
+        //     id: 3,
+        //     name: 'Rajit',
+        //     subject: 'Angular',
+        //     fees: 29000,
+        //     doj: '01-02-2022'
+        // },
+        // {
+        //     id: 4,
+        //     name: 'sanket',
+        //     subject: 'MVC',
+        //     fees: 29000,
+        //     doj: '01-02-2022'
+        // },
+        // {
+        //     id: 5,
+        //     name: 'Yogesh',
+        //     subject: 'java',
+        //     fees: 39000,
+        //     doj: '02-02-2022'
+        // },
 
     ])
-    const [studentData, setStudentData] = useState([...fullData])
     const [sortOrder, setSortOrder] = useState(1);
-    const sortData = (data: any) => {
-        const columnName = data?.columnName;
-        const columnType = data?.type;
+    const sortData = (e: any) => {
+        const target: any = e?.target;
+        const columnName = target.getAttribute("ele-name");
+        const columnType = target.getAttribute("ele-type");
          
         setSortOrder(sortOrder * -1);
-        studentData.sort((a: any, b: any) => {
+        subjectData.sort((a: any, b: any) => {
 
             if (columnType === 'ci') {
                 return a[columnName].toUpperCase() > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
             } else if (columnType === 'date') {
-                return convertDate(a[columnName]) > convertDate(b[columnName]) ? -1 * sortOrder : 1 * sortOrder;
+                return a[columnName] > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
             }
                 return a[columnName] > b[columnName] ? -1 * sortOrder : 1 * sortOrder;
 			 
            
         })
-        const d = [...studentData]
-        setStudentData(d);
+        const d = [...subjectData]
+        setSubjectData(d);
 	}
-    const filterData = (header: any, search: any, val: any) => {
-        console.log(`${header?.columnName} value is ${val}`);
-        search.value = val;
-        debugger;
-        console.table(headers);
-        const data = fullData.filter((e: any) => {
-            if (search.value === '' || search.value === undefined || search.value ===null ) {
-                return true;
-            }
-            if (search.type === 'num') {
-                return (+e[search.columnName]) === (+search.value);
-            } else if (search.type === 'ci') {
-                return e[search.columnName]?.toLowerCase()?.indexOf(search?.value?.toLowerCase()) > -1;
-            } else if (search.type === 'cs') {
-                return e[search.columnName].indexOf(search.value) > -1;
-            }
 
-            return (e[search.columnName]) === (search.value);
-        
-     })
-
-        setStudentData(data);
-
-        setHeader([...headers])
-	}
     return (
         <div className="container-xxl position-relative bg-white d-flex p-0">
             <div className="sidebar pe-4 pb-3">
@@ -272,14 +197,7 @@ export const Student = () => {
                     <div className="d-flex align-items-center justify-content-between mb-4">
                         <h6 className="mb-0">Recent Salse</h6>
                         <a href="index.html">Show All</a>
-                        </div>
-
-                        <div>
-                            <span >Id</span><input type="text" />
-                            <span >Name</span><input type="text" />
-
-                            <button type="button" >Search</button>
-                        </div>
+                    </div>
                     <div className="table-responsive">
                         <table className="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
@@ -290,12 +208,12 @@ export const Student = () => {
 
                                                 if (e.isSortable===true) {
                                                     return (
-                                                        <th   onClick={() => { sortData(e)}}>{e.displayName}</th>
+                                                        <th ele-name={e.columnName} ele-type={e.type }  onClick={sortData}>{e.displayName}</th>
                                                     )
                                                 }
                                                
                                                     return (
-                                                        <th>&nbsp;</th>
+                                                        <th name-ele={e.columnName} >{e.displayName}</th>
                                                     )
 												 
                                                
@@ -303,53 +221,20 @@ export const Student = () => {
                                     }
 
                                     </tr>
-                                    <tr className="text-dark">
-                                        <th scope="col">input</th>
-                                        {
-                                            headers.map((e) => {
-
-                                                if (e?.isSearchable === true) {
-                                                    return (
-                                                        <th>
-                                                            {
-                                                                e?.searchs?.map((s) => {
-                                                                    return (
-                                                                        <input className="search" onChange={(event: any) => {
-
-
-                                                                            filterData(e, s, event?.target?.value);
-                                                                        }} type="text" />
-                                                                    )
-                                                                }
-                                                                )
-                                                            }
-                                                        </th>
-                                                    )
-                                                }
-
-                                                return (
-                                                    <th>&nbsp;</th>
-                                                )
-
-
-                                            })
-                                        }
-
-                                    </tr>
                               
                             </thead>
                                 <tbody>
 
                                     {
-                                        studentData.map((s) => {
+                                        subjectData.map((s) => {
                                             return (
                                                 <tr>
                                                     <td><input className="form-check-input" type="checkbox" /></td>
-                                                    <td>{ s.id}</td>
-                                                    <td>{s.name}</td>
-                                                    <td>{ s.subject}</td>
+                                                    <td>{ s.subcode}</td>
+                                                    <td>{s.subname}</td>
+                                                    {/* <td>{ s.subject}</td>
                                                     <td>{ s.fees}</td>
-                                                    <td>{ s.doj}</td>
+                                                    <td>{ s.doj}</td> */}
                                                     <td><a className="btn btn-sm btn-primary" href="index.html">Edit</a> <a className="btn btn-sm btn-danger" href="index.html">Delete</a></td>
                                                 </tr>
 
