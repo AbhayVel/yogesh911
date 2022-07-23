@@ -57,8 +57,22 @@ export const Subject = () => {
             // subject: 'React',
             // fees: 25000,
             // doj: '01-02-2022'
+        },
+        {
+            subcode: 3,
+            subname: 'Hindi'
+
+        },
+        {
+            subcode: 4,
+            subname: 'Marathi'
+
+        },
+        {
+            subcode: 5,
+            subname: 'Science'
+
         }
-        
         // {
         //     id: 3,
         //     name: 'Rajit',
