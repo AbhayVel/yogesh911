@@ -21,7 +21,7 @@ export const Routes = (): JSX.Element => (
 /*
  * Komal K -> Subject
  * Yogesh -> department
- * Nivant -> STudent Notes 
+ * Nivant -> STudent Note
  * Teacher -> Komal M
  * Sanket -> STtudent Attendance 
  * Ranjit -> Teacher Notes
