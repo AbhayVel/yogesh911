@@ -5,27 +5,39 @@ export const StudentAttendance = () => {
     const [headers, setHeader] = useState([
         {
             displayName : "Id",
-            columnName : "id"
+            columnName : "id",
+            issortable : true,
+            type : 'num'
         },
         {
-            displayName : "studentName",
-            columnName : "studentName"
+            displayName : "Student Name",
+            columnName : "name",
+            issortable : true,
+            type : 'ci'
         },
         {
             displayName : "Calender",
-            columnName : "calender"
+            columnName : "calender",
+            issortable : false,
+            type : 'date'
         },
         {
             displayName : "Status",
-            columnName : "status"
+            columnName : "status",
+            issortable : false,
+            type : 'ci'
         },
         {
             displayName : "Teachers Note",
-            columnName : "teachersNote"
+            columnName : "teachersNote",
+            issortable : true,
+            type : 'ci'
         },
         {
             displayName : "Participation",
-            columnName : "participation"
+            columnName : "participation",
+            issortable : true,
+            type : 'num'
         }
     ])
     const [attendanceData, setattendanceData] = useState([
@@ -50,7 +62,7 @@ export const StudentAttendance = () => {
             name: 'Rajit',
             aDate: '01-02-2022',
             status: "p",
-            teachersNote: "sick",
+            teachersNote: "AAA",
             participation: 100
         },
         {
@@ -69,14 +81,39 @@ export const StudentAttendance = () => {
             teachersNote: "sick",
             participation: 100
         },
+        {
+            id: 6,
+            name: 'Akash',
+            aDate: '06-02-2022',
+            status: "a",
+            teachersNote: "ZZZ",
+            participation: 10
+        },
+        {
+            id: 8,
+            name: 'Zara',
+            aDate: '06-02-2022',
+            status: "a",
+            teachersNote: "all ok",
+            participation: 70
+        },
     ])
+    const [sortOrder,setSortOrder] = useState(1);
 
     const sortData = (e:any) =>{
         const target : any = e?.target;
-        // eslint-disable-next-line no-alert
-        const columnName = target.getAttribute("name-ele");
+        const columnName = target.getAttribute("ele-name");
+        const columnType = target.getAttribute("ele-type");
+
+        setSortOrder (sortOrder * -1)
+       // alert(columnName);
         attendanceData.sort((a:any,b:any) =>{
-            return a[columnName] > b[columnName] ? -1 :1
+            if (columnType === 'ci'){
+            return a[columnName].toUpperCase() > b[columnName].toUpperCase() ? -1 * sortOrder :1 * sortOrder;
+
+            }
+            
+            return a[columnName] > b[columnName] ? -1 * sortOrder :1 * sortOrder;
         })
         const d = [...attendanceData];
         setattendanceData(d);
@@ -169,8 +206,13 @@ export const StudentAttendance = () => {
                                     <tr className="text-dark">
                                         {
                                             headers.map((e) => {
+                                                if(e.issortable === true ){
+                                                    return (
+                                                        <th ele-name={e.columnName} ele-type={e.type} onClick={sortData}>{e.displayName}</th>
+                                                    )
+                                                }
                                                 return (
-                                                    <th name-ele={e.columnName} onClick={sortData}>{e.displayName}</th>
+                                                    <th name-ele={e.columnName}>{e.displayName}</th>
                                                 )
                                             })
                                         }
