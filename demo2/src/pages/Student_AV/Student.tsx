@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-
-
 export const Student = () => {
 
     const [headers, setHeader] = useState([
