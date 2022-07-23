@@ -3,63 +3,85 @@ import React, { useState } from 'react';
 export const StudentAttendance = () => {
 
     const [headers, setHeader] = useState([
-        "studentId",
-        "studentName",
-        "Calender",
-        "Status",
-        "Teachers Note",
-        "Participation"
+        {
+            displayName : "Id",
+            columnName : "id"
+        },
+        {
+            displayName : "studentName",
+            columnName : "studentName"
+        },
+        {
+            displayName : "Calender",
+            columnName : "calender"
+        },
+        {
+            displayName : "Status",
+            columnName : "status"
+        },
+        {
+            displayName : "Teachers Note",
+            columnName : "teachersNote"
+        },
+        {
+            displayName : "Participation",
+            columnName : "participation"
+        }
     ])
-    const [attendanceData, setStudentData] = useState([
+    const [attendanceData, setattendanceData] = useState([
         {
             id: 1,
             name: 'Komal',
             aDate: '01-01-2022',
-            Status: "p",
-            TeachersNote: "sick",
-            Participation: 100
+            status: "p",
+            teachersNote: "sick",
+            participation: 100
         },
         {
             id: 2,
             name: 'Nivant',
             aDate: '01-02-2022',
-            Status: "p",
-            TeachersNote: "sick",
-            Participation: 100
+            status: "p",
+            teachersNote: "sick",
+            participation: 100
         },
         {
             id: 3,
             name: 'Rajit',
             aDate: '01-02-2022',
-            Status: "p",
-            TeachersNote: "sick",
-            Participation: 100
+            status: "p",
+            teachersNote: "sick",
+            participation: 100
         },
         {
             id: 4,
             name: 'sanket',
             aDate: '01-02-2022',
-            Status: "p",
-            TeachersNote: "sick",
-            Participation: 100
+            status: "p",
+            teachersNote: "sick",
+            participation: 100
         },
         {
             id: 5,
             name: 'Yogesh',
             aDate: '02-02-2022',
-            Status: "p",
-            TeachersNote: "sick",
-            Participation: 100
+            status: "p",
+            teachersNote: "sick",
+            participation: 100
         },
     ])
 
     const sortData = (e:any) =>{
-        // const target: any =e?.target;
-        // attendanceData.sort((a,b)=>{
-        //     return a.id > b.id ? -1:1;
-        // })
+        const target : any = e?.target;
+        // eslint-disable-next-line no-alert
+        const columnName = target.getAttribute("name-ele");
+        attendanceData.sort((a:any,b:any) =>{
+            return a[columnName] > b[columnName] ? -1 :1
+        })
+        const d = [...attendanceData];
+        setattendanceData(d);
 
-        alert(e)
+        
             
     }
     return (
@@ -148,7 +170,7 @@ export const StudentAttendance = () => {
                                         {
                                             headers.map((e) => {
                                                 return (
-                                                    <th name-ele={e} onClick={sortData}>{e}</th>
+                                                    <th name-ele={e.columnName} onClick={sortData}>{e.displayName}</th>
                                                 )
                                             })
                                         }
@@ -165,9 +187,9 @@ export const StudentAttendance = () => {
                                                     <td>{e.id}</td>
                                                     <td>{e.name}</td>
                                                     <td>{e.aDate}</td>
-                                                    <td>{e.Status}</td>
-                                                    <td>{e.TeachersNote}</td>
-                                                    <td>{e.Participation}</td>
+                                                    <td>{e.status}</td>
+                                                    <td>{e.teachersNote}</td>
+                                                    <td>{e.participation}</td>
                                                 </tr>
                                             )
                                         })
