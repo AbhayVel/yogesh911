@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes as RoutesRRD } from 'react-router-dom';
 import { lazyComponent } from '../../common/utils';
+import { Teachers } from '../../pages/Student_KM/Teachers';
 
 import { Subject } from '../../pages/Subject_kk/Subject';
 
@@ -16,11 +17,10 @@ export const Routes = (): JSX.Element => (
     <Route element={<Student />} path="/" />
     <Route element={<Home />} path="/home" />
     <Route element={<PageNotFound />} path="*" />
-
+    <Route element={<Teachers/>} path="/teachers" />
     <Route element={<Subject/>} path="/Subject" />
 
     <Route element={<StudentAttendance />} path="/StudentAttendance" />
-
   </RoutesRRD>
 );
 
