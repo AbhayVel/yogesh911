@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
+import { TableGrid } from '../../common/TableGrid';
+import { filterCommon, convertDate } from '../../common/utilities-functions';
 
-function convertDate(str: any) {
-    if (str instanceof Date) {
-        return str;
-    }
-    const dateArray = str.split('-');
-    if (dateArray.length === 3) {
-
-        return new Date((+dateArray[2]), (+dateArray[1]) - 1, (+dateArray[0]), 0, 0, 0, 0);
-    }
-    return "not a Date"
-}
+ 
 
 export const Student = () => {
 
     const [headers, setHeader] = useState([
+        {
+            isShow: false,
+            displayName: "Input",
+            columnName: "id",
+            isSortable: false,
+            type: 'num',
+            isSearchable: false,
+            searchs: [
+            ],
+            customDisplay: true,
+            customDisplayIndex: 0
+
+        },
         {
             displayName: "Id",
             columnName: "id",
@@ -73,13 +78,13 @@ export const Student = () => {
                 {
                     columnName: "fees",
                     value: '',
-                    type: 'num'
+                    type: 'GteNum'
 
                 },
                 {
                     columnName: "fees",
                     value: '',
-                    type: 'num'
+                    type: 'LteNum'
 
                 }
 
@@ -105,7 +110,9 @@ export const Student = () => {
             displayName: "Action",
             columnName: "Action",
             isSortable: false,
-            isSearchable: false
+            isSearchable: false,
+            customDisplay: true,
+            customDisplayIndex: 1
         }
          
     ])
@@ -168,28 +175,15 @@ export const Student = () => {
         const d = [...studentData]
         setStudentData(d);
 	}
-    const filterData = (header: any, search: any, val: any) => {
+    const filterData = (header: any, searchData: any, val: any) => {
         console.log(`${header?.columnName} value is ${val}`);
-        search.value = val;
-        debugger;
-        console.table(headers);
-        const data = fullData.filter((e: any) => {
-            if (search.value === '' || search.value === undefined || search.value ===null ) {
-                return true;
-            }
-            if (search.type === 'num') {
-                return (+e[search.columnName]) === (+search.value);
-            } else if (search.type === 'ci') {
-                return e[search.columnName]?.toLowerCase()?.indexOf(search?.value?.toLowerCase()) > -1;
-            } else if (search.type === 'cs') {
-                return e[search.columnName].indexOf(search.value) > -1;
-            }
+        searchData.value = val;
+       
 
-            return (e[search.columnName]) === (search.value);
-        
-     })
+        const rows: any=filterCommon(fullData,headers);
+ 
 
-        setStudentData(data);
+        setStudentData(rows);
 
         setHeader([...headers])
 	}
@@ -280,85 +274,14 @@ export const Student = () => {
 
                             <button type="button" >Search</button>
                         </div>
-                    <div className="table-responsive">
-                        <table className="table text-start align-middle table-bordered table-hover mb-0">
-                                <thead>
-                                    <tr className="text-dark">
-                                        <th scope="col">input</th>
-                                    {
-                                            headers.map((e) => {
-
-                                                if (e.isSortable===true) {
-                                                    return (
-                                                        <th   onClick={() => { sortData(e)}}>{e.displayName}</th>
-                                                    )
-                                                }
-                                               
-                                                    return (
-                                                        <th>&nbsp;</th>
-                                                    )
-												 
-                                               
-											})
-                                    }
-
-                                    </tr>
-                                    <tr className="text-dark">
-                                        <th scope="col">input</th>
-                                        {
-                                            headers.map((e) => {
-
-                                                if (e?.isSearchable === true) {
-                                                    return (
-                                                        <th>
-                                                            {
-                                                                e?.searchs?.map((s) => {
-                                                                    return (
-                                                                        <input className="search" onChange={(event: any) => {
-
-
-                                                                            filterData(e, s, event?.target?.value);
-                                                                        }} type="text" />
-                                                                    )
-                                                                }
-                                                                )
-                                                            }
-                                                        </th>
-                                                    )
-                                                }
-
-                                                return (
-                                                    <th>&nbsp;</th>
-                                                )
-
-
-                                            })
-                                        }
-
-                                    </tr>
-                              
-                            </thead>
-                                <tbody>
-
-                                    {
-                                        studentData.map((s) => {
-                                            return (
-                                                <tr>
-                                                    <td><input className="form-check-input" type="checkbox" /></td>
-                                                    <td>{ s.id}</td>
-                                                    <td>{s.name}</td>
-                                                    <td>{ s.subject}</td>
-                                                    <td>{ s.fees}</td>
-                                                    <td>{ s.doj}</td>
-                                                    <td><a className="btn btn-sm btn-primary" href="index.html">Edit</a> <a className="btn btn-sm btn-danger" href="index.html">Delete</a></td>
-                                                </tr>
-
-                                            )
-                                        })									  
-                                    }
-                            </tbody>
-                        </table>
-                    </div>
+                   <TableGrid headers={headers} filterData={filterData} sortData={sortData} tableData={studentData} >
+                           <input className="form-check-input" type="checkbox" />
+                          <div>
+                            <a className="btn btn-sm btn-primary" href="index.html">Edit</a>
+                           <a className="btn btn-sm btn-danger" href="index.html">Delete</a>
+             
+                          </div>
+                                 </TableGrid>
                     <div className='mt-4'>
                     <ul className="pagination">
                         <li className="page-item disabled"><a className="page-link" href="index.html">Previous</a></li>
