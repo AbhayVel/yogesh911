@@ -12,9 +12,6 @@
 .search{
 	width: 100px;
 }
-th{
-	cursor: pointer;
-}
 .back-to-top {
 	position: fixed;
 	display: none;
@@ -290,6 +287,48 @@ th{
 	}
 }
 
+
+// Tree Structure CSS
+
+ul, #myUL {
+	list-style-type: none;
+  }
+  
+  #myUL {
+	margin: 0;
+	padding: 0;
+  }
+  
+  .caret {
+	cursor: pointer;
+	-webkit-user-select: none; /* Safari 3.1+ */
+	-moz-user-select: none; /* Firefox 2+ */
+	-ms-user-select: none; /* IE 10+ */
+	user-select: none;
+  }
+  
+  .caret::before {
+	content: "\25B6";
+	color: black;
+	display: inline-block;
+	margin-right: 6px;
+  }
+  
+  .caret-down::before {
+	transform: rotate(90deg);  
+  }
+  
+  .nested {
+	display: none;
+	display: block;
+  }
+  
+  .active {
+	display: block;
+  }
+
+
+
 @media (min-width: 992px) {
 	.sidebar {
 		margin-left: 0;
@@ -335,3 +374,5 @@ th{
 		}
 	}
 }
+
+
