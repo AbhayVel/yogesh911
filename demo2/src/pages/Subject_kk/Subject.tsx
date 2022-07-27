@@ -6,35 +6,35 @@ export const Subject = () => {
 
     const [headers, setHeader] = useState([
         {
-            displayName: "Sub Code",
-            columnName: "subcode",
+            displayName: "Id",
+            columnName: "id",
             isSortable: true,
             type: 'num'
         },
         {
-            displayName: "Subject Name",
-            columnName: "subname",
+            displayName: "Full Name",
+            columnName: "name",
             isSortable: true,
             type: 'ci'
         },
-        // {
-        //     displayName: "Subject",
-        //     columnName: "subject",
-        //     isSortable: true,
-        //     type: 'cs'
-        // },
-        // {
-        //     displayName: "Fees",
-        //     columnName: "fees",
-        //     isSortable: true,
-        //     type: 'num'
-        // },
-        // {
-        //     displayName: "DOJ",
-        //     columnName: "doj",
-        //     isSortable: true,
-        //     type: 'date'
-        // },
+        {
+            displayName: "Subject",
+            columnName: "subject",
+            isSortable: true,
+            type: 'cs'
+        },
+        {
+            displayName: "Fees",
+            columnName: "fees",
+            isSortable: true,
+            type: 'num'
+        },
+        {
+            displayName: "DOJ",
+            columnName: "doj",
+            isSortable: true,
+            type: 'date'
+        },
         {
             displayName: "Action",
             columnName: "Action",
@@ -45,55 +45,40 @@ export const Subject = () => {
 
     const [subjectData, setSubjectData] = useState([
         {
-            subcode: 1,
-            subname: 'English',
-            // subject: 'Javascript',
-            // fees: 21000,
-            // doj: '01-01-2022'
+            id: 1,
+            name: 'Komal',
+            subject: 'Javascript',
+            fees: 21000,
+            doj: '01-01-2022'
         },
         {
-            subcode: 2,
-            subname: 'Maths',
-            // subject: 'React',
-            // fees: 25000,
-            // doj: '01-02-2022'
+            id: 2,
+            name: 'Nivant',
+            subject: 'React',
+            fees: 25000,
+            doj: '01-02-2022'
+        },       
+        {
+            id: 3,
+            name: 'Rajit',
+            subject: 'Angular',
+            fees: 29000,
+            doj: '01-02-2022'
         },
         {
-            subcode: 3,
-            subname: 'Hindi'
-
+            id: 4,
+            name: 'sanket',
+            subject: 'MVC',
+            fees: 29000,
+            doj: '01-02-2022'
         },
         {
-            subcode: 4,
-            subname: 'Marathi'
-
+            id: 5,
+            name: 'Yogesh',
+            subject: 'java',
+            fees: 39000,
+            doj: '02-02-2022'
         },
-        {
-            subcode: 5,
-            subname: 'Science'
-
-        }
-        // {
-        //     id: 3,
-        //     name: 'Rajit',
-        //     subject: 'Angular',
-        //     fees: 29000,
-        //     doj: '01-02-2022'
-        // },
-        // {
-        //     id: 4,
-        //     name: 'sanket',
-        //     subject: 'MVC',
-        //     fees: 29000,
-        //     doj: '01-02-2022'
-        // },
-        // {
-        //     id: 5,
-        //     name: 'Yogesh',
-        //     subject: 'java',
-        //     fees: 39000,
-        //     doj: '02-02-2022'
-        // },
 
     ])
     const [sortOrder, setSortOrder] = useState(1);
@@ -230,11 +215,11 @@ export const Subject = () => {
                                             return (
                                                 <tr>
                                                     <td><input className="form-check-input" type="checkbox" /></td>
-                                                    <td>{ s.subcode}</td>
-                                                    <td>{s.subname}</td>
-                                                    {/* <td>{ s.subject}</td>
+                                                    <td>{ s.id}</td>
+                                                    <td>{s.name}</td>
+                                                    <td>{ s.subject}</td>
                                                     <td>{ s.fees}</td>
-                                                    <td>{ s.doj}</td> */}
+                                                    <td>{ s.doj}</td>
                                                     <td><a className="btn btn-sm btn-primary" href="index.html">Edit</a> <a className="btn btn-sm btn-danger" href="index.html">Delete</a></td>
                                                 </tr>
 

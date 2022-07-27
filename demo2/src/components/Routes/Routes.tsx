@@ -3,6 +3,7 @@ import { Route, Routes as RoutesRRD } from 'react-router-dom';
 import { lazyComponent } from '../../common/utils';
 import { Department } from '../../pages/Student_Department_YG/Department';
 import { StudentAttendance } from '../../pages/Student_attendance_SB/Student_attendance';
+import { Subject } from '../../pages/Subject_kk/Subject';
 
 const Student = lazyComponent('Student', import('../../pages/Student_AV/Student'));
 const Home = lazyComponent('Home', import('../../pages/Home/Home'));
@@ -15,6 +16,7 @@ export const Routes = (): JSX.Element => (
     <Route element={<PageNotFound />} path="*" />
     <Route element={<Department />} path="/department" />
     <Route element={<StudentAttendance />} path="/StudentAttendance" />
+    <Route element={<Subject />} path="/subject" />
   </RoutesRRD>
 );
 
