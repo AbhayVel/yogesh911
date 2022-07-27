@@ -1,0 +1,2 @@
+1.  code review
+2. File structure (how it goes to home page or which is the root page)?
