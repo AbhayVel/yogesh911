@@ -4,104 +4,44 @@ import React, { useState } from 'react';
 
 export const Subject = () => {
 
-    const [headers, setHeader] = useState([
-        {
-            displayName: "Id",
-            columnName: "id",
-            isSortable: true,
-            type: 'num'
-        },
-        {
-            displayName: "Full Name",
-            columnName: "name",
-            isSortable: true,
-            type: 'ci'
-        },
-        {
-            displayName: "Subject",
-            columnName: "subject",
-            isSortable: true,
-            type: 'cs'
-        },
-        {
-            displayName: "Fees",
-            columnName: "fees",
-            isSortable: true,
-            type: 'num'
-        },
-        {
-            displayName: "DOJ",
-            columnName: "doj",
-            isSortable: true,
-            type: 'date'
-        },
-        {
-            displayName: "Action",
-            columnName: "Action",
-            isSortable: false
-        }
-         
+    const [headers,setHeader] = useState([
+        "Sub_Code",
+        "Sub_Name",
+        "Action"    
     ])
 
-    const [subjectData, setSubjectData] = useState([
-        {
-            id: 1,
-            name: 'Komal',
-            subject: 'Javascript',
-            fees: 21000,
-            doj: '01-01-2022'
-        },
-        {
-            id: 2,
-            name: 'Nivant',
-            subject: 'React',
-            fees: 25000,
-            doj: '01-02-2022'
-        },       
-        {
-            id: 3,
-            name: 'Rajit',
-            subject: 'Angular',
-            fees: 29000,
-            doj: '01-02-2022'
-        },
-        {
-            id: 4,
-            name: 'sanket',
-            subject: 'MVC',
-            fees: 29000,
-            doj: '01-02-2022'
-        },
-        {
-            id: 5,
-            name: 'Yogesh',
-            subject: 'java',
-            fees: 39000,
-            doj: '02-02-2022'
-        },
+const [subData,setSubData]=useState([
+    {
+        sub_code : 1,
+        sub_name :'Javascript',
+    },
+    {
+        sub_code : 2,
+        sub_name :'Database',
+    },
+    {
+        sub_code : 3,
+        sub_name :'C++',
+    },
+    {
+        sub_code : 4,
+        sub_name :'Maths',
+    },
+    {
+        sub_code : 5,
+        sub_name :'Dot Net',
+    }
+])
 
-    ])
-    const [sortOrder, setSortOrder] = useState(1);
-    const sortData = (e: any) => {
-        const target: any = e?.target;
-        const columnName = target.getAttribute("ele-name");
-        const columnType = target.getAttribute("ele-type");
-         
-        setSortOrder(sortOrder * -1);
-        subjectData.sort((a: any, b: any) => {
-
-            if (columnType === 'ci') {
-                return a[columnName].toUpperCase() > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
-            } else if (columnType === 'date') {
-                return a[columnName] > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
-            }
-                return a[columnName] > b[columnName] ? -1 * sortOrder : 1 * sortOrder;
-			 
-           
-        })
-        const d = [...subjectData]
-        setSubjectData(d);
-	}
+const sortData = (e : any) =>{
+    const target : any = e?.target;
+    const columnName = target.getAttribute("namme-ele");
+    subData.sort((a : any , b : any) => {  
+        return a[columnName] > b[columnName] ? -1 : 1 ;
+    })
+    const d = [...subData];
+    setSubData(d);
+}
 
     return (
         <div className="container-xxl position-relative bg-white d-flex p-0">
@@ -186,46 +126,31 @@ export const Subject = () => {
                     <div className="table-responsive">
                         <table className="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
-                                    <tr className="text-dark">
-                                        <th scope="col">input</th>
+                                <tr className='text-dark'>
+                                    <th scope='col'>Input</th>
                                     {
-                                            headers.map((e) => {
-
-                                                if (e.isSortable===true) {
-                                                    return (
-                                                        <th ele-name={e.columnName} ele-type={e.type }  onClick={sortData}>{e.displayName}</th>
-                                                    )
-                                                }
-                                               
-                                                    return (
-                                                        <th name-ele={e.columnName} >{e.displayName}</th>
-                                                    )
-												 
-                                               
-											})
-                                    }
-
-                                    </tr>
-                              
-                            </thead>
-                                <tbody>
-
-                                    {
-                                        subjectData.map((s) => {
+                                        headers.map((e) => {
                                             return (
-                                                <tr>
-                                                    <td><input className="form-check-input" type="checkbox" /></td>
-                                                    <td>{ s.id}</td>
-                                                    <td>{s.name}</td>
-                                                    <td>{ s.subject}</td>
-                                                    <td>{ s.fees}</td>
-                                                    <td>{ s.doj}</td>
-                                                    <td><a className="btn btn-sm btn-primary" href="index.html">Edit</a> <a className="btn btn-sm btn-danger" href="index.html">Delete</a></td>
-                                                </tr>
-
+                                                <th name-ele = {e} onClick = {sortData}>{e}</th>
                                             )
-                                        })									  
+                                        })
                                     }
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    subData.map((e) => {
+                                        return (
+                                            <tr>
+                                                <td><input className='from-check-input' type='checkbox'/></td>
+                                                <td>{e.sub_code}</td>
+                                                <td>{e.sub_name}</td>
+                                                <td><a className='bt btn-sm btn-primary' href='index.html'>Edit</a> <a className='bt btn-sm btn-danger' href='index.html'>Delete</a></td>
+
+                                            </tr>
+                                        )
+                                    })
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -244,7 +169,7 @@ export const Subject = () => {
         </div>
     )
 }
-                   
+            
 
 
 
