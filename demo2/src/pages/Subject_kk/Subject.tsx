@@ -5,9 +5,18 @@ import React, { useState } from 'react';
 export const Subject = () => {
 
     const [headers,setHeader] = useState([
-        "Sub_Code",
-        "Sub_Name",
-        "Action"    
+        {
+            displayName:"Sub_Code",
+            columnName:"sub_code"
+        },
+        {
+            displayName:"Sub_Name",
+            columnName:"sub_name"
+        },
+        {
+            displayName:"Action",
+            columnName:"action"
+        }
     ])
 
 const [subData,setSubData]=useState([
@@ -33,14 +42,20 @@ const [subData,setSubData]=useState([
     }
 ])
 
+const[sortOrder,setSortOrder] = useState(1);
+
 const sortData = (e : any) =>{
-    const target : any = e?.target;
-    const columnName = target.getAttribute("namme-ele");
-    subData.sort((a : any , b : any) => {  
-        return a[columnName] > b[columnName] ? -1 : 1 ;
+    const target : any = e?.target; 
+    const columnName = target.getAttribute("name-ele");
+
+    setSortOrder(sortOrder * -1);
+    subData.sort((a : any , b : any) => {
+      
+        return a[columnName] > b[columnName] ? -1 * sortOrder:1 * sortOrder;
+    
     })
-    const d = [...subData];
-    setSubData(d);
+    
+    setSubData([...subData]);
 }
 
     return (
@@ -131,7 +146,7 @@ const sortData = (e : any) =>{
                                     {
                                         headers.map((e) => {
                                             return (
-                                                <th name-ele = {e} onClick = {sortData}>{e}</th>
+                                                <th name-ele = {e.columnName} onClick = {sortData}>{e.displayName}</th>
                                             )
                                         })
                                     }

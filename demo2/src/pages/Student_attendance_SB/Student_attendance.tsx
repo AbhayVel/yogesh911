@@ -53,7 +53,7 @@ export const StudentAttendance = () => {
         },
     ])
 
-    const sortData = (e:any) =>{
+    const sortData = (e:any) => {
         // const target: any =e?.target;
         // attendanceData.sort((a,b)=>{
         //     return a.id > b.id ? -1:1;
