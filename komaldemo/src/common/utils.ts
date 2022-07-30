@@ -1,6 +1,5 @@
 import { FC, lazy, LazyExoticComponent } from 'react';
 
-
 export const lazyComponent = (
   name: string,
   importer: Promise<Record<string, FC>>
@@ -9,6 +8,3 @@ export const lazyComponent = (
     const component = await importer;
     return { default: component[name] };
   });
-
-
-  

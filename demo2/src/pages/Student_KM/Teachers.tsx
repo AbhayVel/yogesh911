@@ -1,192 +1,109 @@
 import React, { useState } from 'react';
-import { TableGrid } from '../../common/TableGrid';
-import { filterCommon, convertDate } from '../../common/utilities-functions';
 
- 
 
-export const Student = () => {
+
+export const Teachers = () => {
 
     const [headers, setHeader] = useState([
-        {
-            isShow: false,
-            displayName: "Input",
-            columnName: "id",
-            isSortable: false,
-            type: 'num',
-            isSearchable: false,
-            searchs: [
-            ],
-            customDisplay: true,
-            customDisplayIndex: 0
-
-        },
         {
             displayName: "Id",
             columnName: "id",
             isSortable: true,
-            type: 'num',
-            isSearchable: true,
-            searchs: [
-                {
-                    columnName: "id",
-                    value: '',
-                    type: 'num'
-
-				}
-
-            ]
-
+            type: 'num'
         },
         {
             displayName: "Full Name",
             columnName: "name",
             isSortable: true,
-            type: 'ci',
-            isSearchable: true,
-            searchs: [
-                {
-                    columnName: "name",
-                    value: '',
-                    type: 'ci'
-
-                }
-
-            ]
+            type: 'ci'
         },
         {
             displayName: "Subject",
             columnName: "subject",
             isSortable: true,
-            type: 'cs',
-            searchs: [
-                {
-                    columnName: "subject",
-                    value: '',
-                    type: 'ci'
-
-                }
-
-            ]
+            type: 'cs'
         },
-        {
-            displayName: "Fees",
-            columnName: "fees",
-            isSortable: true,
-            type: 'num',
-            isSearchable: true,
-            searchs: [
-                {
-                    columnName: "fees",
-                    value: '',
-                    type: 'GteNum'
-
-                },
-                {
-                    columnName: "fees",
-                    value: '',
-                    type: 'LteNum'
-
-                }
-
-            ]
-        },
+        // {
+        //     displayName: "Fees",
+        //     columnName: "fees",
+        //     isSortable: true,
+        //     type: 'num'
+        // },
         {
             displayName: "DOJ",
             columnName: "doj",
             isSortable: true,
-            type: 'date',
-            isSearchable: true,
-            searchs: [
-                {
-                    columnName: "doj",
-                    value: '',
-                    type: 'num'
-
-                }
-
-            ]
+            type: 'date'
         },
         {
             displayName: "Action",
             columnName: "Action",
-            isSortable: false,
-            isSearchable: false,
-            customDisplay: true,
-            customDisplayIndex: 1
+            isSortable: false
         }
          
     ])
-    const [fullData, setFullData] = useState([
+
+    const [teacherData, setTeacherData] = useState([
         {
             id: 1,
             name: 'Komal',
             subject: 'Javascript',
-            fees: 21000,
-            doj: '01-03-2022'
+            doj: '01-01-2022'
         },
         {
             id: 2,
             name: 'Nivant',
             subject: 'React',
-            fees: 25000,
-            doj: '01-02-2021'
+            doj: '01-02-2022'
         },
         {
             id: 3,
             name: 'Rajit',
             subject: 'Angular',
-            fees: 29000,
-            doj: '13-02-2022'
+            doj: '01-02-2022'
         },
         {
             id: 4,
             name: 'sanket',
             subject: 'MVC',
-            fees: 29000,
-            doj: '15-02-2022'
+            doj: '01-02-2022'
         },
         {
             id: 5,
             name: 'Yogesh',
             subject: 'java',
-            fees: 39000,
+            doj: '02-02-2022'
+        },
+        {
+            id: 6,
+            name: 'Komal_M',
+            subject: 'React',
             doj: '02-02-2022'
         },
 
     ])
-    const [studentData, setStudentData] = useState([...fullData])
     const [sortOrder, setSortOrder] = useState(1);
-    const sortData = (data: any) => {
-        const columnName = data?.columnName;
-        const columnType = data?.type;
+    const sortData = (e: any) => {
+        const target: any = e?.target;
+        const columnName = target.getAttribute("ele-name");
+        const columnType = target.getAttribute("ele-type");
          
         setSortOrder(sortOrder * -1);
-        studentData.sort((a: any, b: any) => {
+        teacherData.sort((a: any, b: any) => {
 
             if (columnType === 'ci') {
                 return a[columnName].toUpperCase() > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
             } else if (columnType === 'date') {
-                return convertDate(a[columnName]) > convertDate(b[columnName]) ? -1 * sortOrder : 1 * sortOrder;
+                return a[columnName] > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
             }
                 return a[columnName] > b[columnName] ? -1 * sortOrder : 1 * sortOrder;
 			 
            
         })
-        const d = [...studentData]
-        setStudentData(d);
+        const d = [...teacherData]
+        setTeacherData(d);
 	}
-    const filterData = (header: any, searchData: any, val: any) => {
-        console.log(`${header?.columnName} value is ${val}`);
-        searchData.value = val;
-       
 
-        const rows: any=filterCommon(fullData,headers);
- 
-
-        setStudentData(rows);
-
-        setHeader([...headers])
-	}
     return (
         <div className="container-xxl position-relative bg-white d-flex p-0">
             <div className="sidebar pe-4 pb-3">
@@ -266,22 +183,53 @@ export const Student = () => {
                     <div className="d-flex align-items-center justify-content-between mb-4">
                         <h6 className="mb-0">Recent Salse</h6>
                         <a href="index.html">Show All</a>
-                        </div>
+                    </div>
+                    <div className="table-responsive">
+                        <table className="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr className="text-dark">
+                                        <th scope="col">input</th>
+                                    {
+                                            headers.map((e) => {
 
-                        <div>
-                            <span >Id</span><input type="text" />
-                            <span >Name</span><input type="text" />
+                                                if (e.isSortable===true) {
+                                                    return (
+                                                        <th ele-name={e.columnName} ele-type={e.type }  onClick={sortData}>{e.displayName}</th>
+                                                    )
+                                                }
+                                               
+                                                    return (
+                                                        <th name-ele={e.columnName} >{e.displayName}</th>
+                                                    )
+												 
+                                               
+											})
+                                    }
 
-                            <button type="button" >Search</button>
-                        </div>
-                   <TableGrid headers={headers} filterData={filterData} sortData={sortData} tableData={studentData} >
-                           <input className="form-check-input" type="checkbox" />
-                          <div>
-                            <a className="btn btn-sm btn-primary" href="index.html">Edit</a>
-                           <a className="btn btn-sm btn-danger" href="index.html">Delete</a>
-             
-                          </div>
-                                 </TableGrid>
+                                    </tr>
+                              
+                            </thead>
+                                <tbody>
+
+                                    {
+                                        teacherData.map((s) => {
+                                            return (
+                                                <tr>
+                                                    <td><input className="form-check-input" type="checkbox" /></td>
+                                                    <td>{ s.id}</td>
+                                                    <td>{s.name}</td>
+                                                    <td>{ s.subject}</td>
+                                                    {/* <td>{ s.fees}</td> */}
+                                                    <td>{ s.doj}</td>
+                                                    <td><a className="btn btn-sm btn-primary" href="index.html">Edit</a> <a className="btn btn-sm btn-danger" href="index.html">Delete</a></td>
+                                                </tr>
+
+                                            )
+                                        })									  
+                                    }
+                            </tbody>
+                        </table>
+                    </div>
                     <div className='mt-4'>
                     <ul className="pagination">
                         <li className="page-item disabled"><a className="page-link" href="index.html">Previous</a></li>
