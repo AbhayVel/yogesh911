@@ -1,53 +1,14 @@
 import React, { useState } from 'react';
 
 export const StudentAttendance = () => {
-
-    const [headers, setHeader] = useState([
-        {
-            displayName : "Id",
-            columnName : "id",
-            issortable : true,
-            type : 'num'
-        },
-        {
-            displayName : "Student Name",
-            columnName : "name",
-            issortable : true,
-            type : 'ci'
-        },
-        {
-            displayName : "Calender",
-            columnName : "calender",
-            issortable : false,
-            type : 'date'
-        },
-        {
-            displayName : "Status",
-            columnName : "status",
-            issortable : false,
-            type : 'ci'
-        },
-        {
-            displayName : "Teachers Note",
-            columnName : "teachersNote",
-            issortable : true,
-            type : 'ci'
-        },
-        {
-            displayName : "Participation",
-            columnName : "participation",
-            issortable : true,
-            type : 'num'
-        }
-    ])
-    const [attendanceData, setattendanceData] = useState([
+const fullData = [    
         {
             id: 1,
             name: 'Komal',
             aDate: '01-01-2022',
             status: "p",
             teachersNote: "sick",
-            participation: 100
+            participation: 100    
         },
         {
             id: 2,
@@ -55,7 +16,7 @@ export const StudentAttendance = () => {
             aDate: '01-02-2022',
             status: "p",
             teachersNote: "sick",
-            participation: 100
+            participation: 100     
         },
         {
             id: 3,
@@ -63,7 +24,7 @@ export const StudentAttendance = () => {
             aDate: '01-02-2022',
             status: "p",
             teachersNote: "AAA",
-            participation: 100
+            participation: 100    
         },
         {
             id: 4,
@@ -71,7 +32,7 @@ export const StudentAttendance = () => {
             aDate: '01-02-2022',
             status: "p",
             teachersNote: "sick",
-            participation: 100
+            participation: 100      
         },
         {
             id: 5,
@@ -79,7 +40,7 @@ export const StudentAttendance = () => {
             aDate: '02-02-2022',
             status: "p",
             teachersNote: "sick",
-            participation: 100
+            participation: 100     
         },
         {
             id: 6,
@@ -96,8 +57,99 @@ export const StudentAttendance = () => {
             status: "a",
             teachersNote: "all ok",
             participation: 70
+        
+    }
+]
+    const [headers, setHeader] = useState([
+        {
+            displayName : "Id",
+            columnName : "id",
+            issortable : true,
+            isserchable : true,
+            type : 'num',
+            searchtype : [
+                {
+                    columnName : 'id',
+                    value:'',
+                    type: 'num'
+                }
+        ]                   
         },
+        {
+            displayName : "Student Name",
+            columnName : "name",
+            issortable : true,
+            isserchable : true,
+            type : 'ci',
+            searchtype : [
+                {
+                    columnName : 'name',
+                    value:'',
+                    type: 'ci'
+                }
+        ]       
+        },
+        {
+            displayName : "Calender",
+            columnName : "calender",
+            issortable : false,
+            isserchable : false,
+            type : 'date',
+            searchtype : [
+                {
+                    columnName : 'id',
+                    value:'',
+                    type: 'num'
+                }
+        ]       
+        },
+        {
+            displayName : "Status",
+            columnName : "status",
+            issortable : false,
+            isserchable : true,
+            type : 'ci',
+            searchtype : [
+                {
+                    columnName : 'id',
+                    value:'',
+                    type: 'num'
+                }
+        ]       
+        },
+        {
+            displayName : "Teachers Note",
+            columnName : "teachersNote",
+            issortable : true,
+            isserchable : true,
+            type : 'ci',
+            searchtype : [
+                {
+                    columnName : 'id',
+                    value:'',
+                    type: 'num'
+                }
+        ]       
+        },
+        {
+            displayName : "Participation",
+            columnName : "participation",
+            issortable : true,
+            isserchable : true,
+            type : 'num',
+            searchtype : [
+                {
+                    columnName : 'id',
+                    value:'',
+                    type: 'num'
+                }
+        ]       
+        }
     ])
+    const [attendanceData, setattendanceData] = useState([
+        ...fullData
+    ])
+    
     const [sortOrder,setSortOrder] = useState(1);
 
     const sortData = (e:any) =>{
@@ -119,8 +171,31 @@ export const StudentAttendance = () => {
         setattendanceData(d);
 
         
-            
+        
     }
+    const searchData = (s:any, value:any) =>{
+        
+                        const columnName = s?.columnName;
+                        const columnType = s.type;
+                        const FilterStudent = fullData.filter((a:any) => {
+                            if (value === "" || value === undefined || value === null){
+                                return true;
+                            }
+                            else if(columnType === "cs"){
+                                return a[columnName].indexOf(value) > -1;
+                            }
+                            else if(columnType === "ci"){
+                                debugger
+                                return a[columnName]?.toLowerCase()?.indexOf(value.toLowerCase()) > -1;
+                            }
+                            else if(columnType === "num"){
+                                return +a[columnName] === +value;
+                            }                   
+                            return (a[columnName])=== (value);
+                        })  
+                        
+                        setattendanceData(FilterStudent)
+                }
     return (
         <div className="container-xxl position-relative bg-white d-flex p-0">
             <div className="sidebar pe-4 pb-3">
@@ -203,16 +278,40 @@ export const StudentAttendance = () => {
                         <div className="table-responsive">
                             <table className="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
-                                    <tr className="text-dark">
+                                <tr className="text-dark">
                                         {
                                             headers.map((e) => {
                                                 if(e.issortable === true ){
-                                                    return (
+                                                    return (                                                        
                                                         <th ele-name={e.columnName} ele-type={e.type} onClick={sortData}>{e.displayName}</th>
                                                     )
                                                 }
                                                 return (
                                                     <th name-ele={e.columnName}>{e.displayName}</th>
+                                                )
+                                            })
+                                        }
+
+                                    </tr>
+                                    <tr className="text-dark">
+                                        {
+                                            headers.map((e) => {
+                                                if(e.isserchable === true ){
+                                                    return (
+                                                       <th>
+                                                        {
+                                                            e?.searchtype?.map((s)=>{                                                               
+                                                               return(
+                                                               <input ele-value={s} onChange={ (eve)=>{searchData(s, eve.target.value)}} />
+
+                                                             )})                                                            
+                                                        }
+                                                       </th>
+                                                    )
+                                                }
+                                                return (
+                                                    <input type="text" value="test2"/>
+                                                   
                                                 )
                                             })
                                         }
