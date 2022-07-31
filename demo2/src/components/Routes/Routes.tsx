@@ -2,12 +2,12 @@ import React from 'react';
 import { Route, Routes as RoutesRRD } from 'react-router-dom';
 import { lazyComponent } from '../../common/utils';
 
+import { Department } from '../../pages/Student_Department_YG/Department';
 import { Teachers } from '../../pages/Student_KM/Teachers';
 
 
-import { Department } from '../../pages/Student_Department_YG/Department';
 import { StudentAttendance } from '../../pages/Student_attendance_SB/Student_attendance';
-import { Subject } from '../../pages/Subject_kk/Subject';
+
 
 
 const Subject = lazyComponent('Subject', import('../../pages/Subject_kk/Subject'));
