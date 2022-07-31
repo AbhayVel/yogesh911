@@ -152,6 +152,7 @@ const fullData = [
     
     const [sortOrder,setSortOrder] = useState(1);
 
+
     const sortData = (e:any) =>{
         const target : any = e?.target;
         const columnName = target.getAttribute("ele-name");
@@ -169,6 +170,7 @@ const fullData = [
         })
         const d = [...attendanceData];
         setattendanceData(d);
+
 
         
         
