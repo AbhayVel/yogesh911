@@ -13,7 +13,8 @@ const [cardData, setCardData ]= useState([
 ]);
 
     return (
-      <div className='row'>
+      <div className="container">
+ <div className='row'>
       <div className='col-lg-4'>
           <div className="card">
        {/* <img className="card-img-top" src="{logo}" alt="Card cap"/> */}
@@ -27,7 +28,7 @@ const [cardData, setCardData ]= useState([
                   <h5 className="card-title">{e.title}</h5>
                   <p className="card-text">{e.text}</p>
                   <a href="about.html" className="btn btn-primary">Go somewhere</a>
-            </div>
+                </div>
 
 
               )
@@ -42,6 +43,8 @@ const [cardData, setCardData ]= useState([
         </div>  
       </div>
       </div>
+      </div>
+     
       
 
     )

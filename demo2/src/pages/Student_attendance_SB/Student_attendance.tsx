@@ -305,7 +305,6 @@ const fullData = [
                                                             e?.searchtype?.map((s)=>{                                                               
                                                                return(
                                                                <input ele-value={s} onChange={ (eve)=>{searchData(s, eve.target.value)}} />
-
                                                              )})                                                            
                                                         }
                                                        </th>
