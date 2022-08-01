@@ -289,16 +289,20 @@
 
 
 // Tree Structure CSS
-
-ul, #myUL {
+.children {
+	padding-left: 50px !important;
+}
+ul, .myUL {
 	list-style-type: none;
   }
   
-  #myUL {
+  .myUL {
 	margin: 0;
 	padding: 0;
   }
-  
+  li ul{
+	padding-left: 20px;
+  }
   .caret {
 	cursor: pointer;
 	-webkit-user-select: none; /* Safari 3.1+ */
