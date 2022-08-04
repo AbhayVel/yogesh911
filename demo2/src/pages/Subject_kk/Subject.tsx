@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 export const Subject = () => {
 
-    const [headers,setHeader] = useState([
+    const [headers,setHeader] = useState([        
         {
             displayName:"Sub_Code",
             columnName:"sub_code"
@@ -146,7 +146,7 @@ const sortData = (e : any) =>{
                                     {
                                         headers.map((e) => {
                                             return (
-                                                <th name-ele = {e.columnName} onClick = {sortData}>{e.displayName}</th>
+                                                <th name-ele={e} onClick={sortData}>{e.displayName}</th>
                                             )
                                         })
                                     }
