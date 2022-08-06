@@ -10,6 +10,7 @@ import { StudentAttendance } from '../../pages/Student_attendance_SB/Student_att
 
 
 
+const Accordian = lazyComponent('Accordian', import('../../pages/Accordian/Accordian'));
 const Subject = lazyComponent('Subject', import('../../pages/Subject_kk/Subject'));
 
 const Student = lazyComponent('Student', import('../../pages/Student_AV/Student'));
@@ -27,6 +28,7 @@ export const Routes = (): JSX.Element => (
 
     <Route element={<Department />} path="/department" />
     <Route element={<StudentAttendance />} path="/StudentAttendance" />
+    <Route element={<Accordian />} path="/Accordian" />
 
     <Route element={<Card/>} path="/Cards" />
     <Route element={<TreeStrcture/>} path="/TreeStrcture" />

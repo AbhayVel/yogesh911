@@ -1,65 +1,65 @@
 import React, { useState } from 'react';
+import { filterCommon, convertDate } from '../../common/utilities-functions';
 
 export const StudentAttendance = () => {
-const fullData = [    
-        {
-            id: 1,
-            name: 'Komal',
-            aDate: '01-01-2022',
-            status: "p",
-            teachersNote: "sick",
-            participation: 100    
-        },
-        {
-            id: 2,
-            name: 'Nivant',
-            aDate: '01-02-2022',
-            status: "p",
-            teachersNote: "sick",
-            participation: 100     
-        },
-        {
-            id: 3,
-            name: 'Rajit',
-            aDate: '01-02-2022',
-            status: "p",
-            teachersNote: "AAA",
-            participation: 100    
-        },
-        {
-            id: 4,
-            name: 'sanket',
-            aDate: '01-02-2022',
-            status: "p",
-            teachersNote: "sick",
-            participation: 100      
-        },
-        {
-            id: 5,
-            name: 'Yogesh',
-            aDate: '02-02-2022',
-            status: "p",
-            teachersNote: "sick",
-            participation: 100     
-        },
-        {
-            id: 6,
-            name: 'Akash',
-            aDate: '06-02-2022',
-            status: "a",
-            teachersNote: "ZZZ",
-            participation: 10
-        },
-        {
-            id: 8,
-            name: 'Zara',
-            aDate: '06-02-2022',
-            status: "a",
-            teachersNote: "all ok",
-            participation: 70
-        
-    }
-]
+    const [fullData, setFullData] = useState([{
+                id: 1,
+                name: 'Komal',
+                aDate: '01-01-2022',
+                status: "p",
+                teachersNote: "sick",
+                participation: 100    
+            },
+            {
+                id: 2,
+                name: 'Nivant',
+                aDate: '01-02-2022',
+                status: "p",
+                teachersNote: "sick",
+                participation: 100     
+            },
+            {
+                id: 3,
+                name: 'Rajit',
+                aDate: '01-02-2022',
+                status: "p",
+                teachersNote: "AAA",
+                participation: 100    
+            },
+            {
+                id: 4,
+                name: 'sanket',
+                aDate: '01-02-2022',
+                status: "p",
+                teachersNote: "sick",
+                participation: 100      
+            },
+            {
+                id: 5,
+                name: 'Yogesh',
+                aDate: '02-02-2022',
+                status: "p",
+                teachersNote: "sick",
+                participation: 100     
+            },
+            {
+                id: 6,
+                name: 'Akash',
+                aDate: '06-02-2022',
+                status: "a",
+                teachersNote: "ZZZ",
+                participation: 10
+            },
+            {
+                id: 8,
+                name: 'Zara',
+                aDate: '06-02-2022',
+                status: "a",
+                teachersNote: "all ok",
+                participation: 70
+            
+        }
+    ])
     const [headers, setHeader] = useState([
         {
             displayName : "Id",
@@ -90,16 +90,16 @@ const fullData = [
         ]       
         },
         {
-            displayName : "Calender",
-            columnName : "calender",
-            issortable : false,
+            displayName : "DOJ",
+            columnName : "aDate",
+            issortable : true,
             isserchable : false,
             type : 'date',
             searchtype : [
                 {
-                    columnName : 'id',
+                    columnName : 'aDate',
                     value:'',
-                    type: 'num'
+                    type: 'date'
                 }
         ]       
         },
@@ -111,9 +111,9 @@ const fullData = [
             type : 'ci',
             searchtype : [
                 {
-                    columnName : 'id',
+                    columnName : 'status',
                     value:'',
-                    type: 'num'
+                    type: 'ci'
                 }
         ]       
         },
@@ -122,12 +122,12 @@ const fullData = [
             columnName : "teachersNote",
             issortable : true,
             isserchable : true,
-            type : 'ci',
+            type : 'cs',
             searchtype : [
                 {
-                    columnName : 'id',
+                    columnName : 'teachersNote',
                     value:'',
-                    type: 'num'
+                    type: 'cs'
                 }
         ]       
         },
@@ -149,30 +149,25 @@ const fullData = [
     const [attendanceData, setattendanceData] = useState([
         ...fullData
     ])
-    
+
     const [sortOrder,setSortOrder] = useState(1);
 
 
-    const sortData = (e:any) =>{
-        const target : any = e?.target;
-        const columnName = target.getAttribute("ele-name");
-        const columnType = target.getAttribute("ele-type");
-
+    const sortData = (data:any) =>{
+        const columnName = data?.columnName;
+        const columnType = data.type;
         setSortOrder (sortOrder * -1)
-       // alert(columnName);
         attendanceData.sort((a:any,b:any) =>{
             if (columnType === 'ci'){
             return a[columnName].toUpperCase() > b[columnName].toUpperCase() ? -1 * sortOrder :1 * sortOrder;
-
+            }else if (columnType === 'date') {
+                return convertDate(a[columnName]) > convertDate(b[columnName]) ? -1 * sortOrder : 1 * sortOrder;
             }
             
             return a[columnName] > b[columnName] ? -1 * sortOrder :1 * sortOrder;
         })
         const d = [...attendanceData];
-        setattendanceData(d);
-
-
-        
+        setattendanceData(d);       
         
     }
     const searchData = (s:any, value:any) =>{
@@ -198,6 +193,27 @@ const fullData = [
                         
                         setattendanceData(FilterStudent)
                 }
+
+    const filterData = (header:any , search:any , val:any)=>{
+        search.value= val;
+        const data = fullData.filter((e:any)=>{
+            if(search.value === ""){                
+                return true                
+            }
+            else if(search.type==='num'){
+                return (+e[search.columnName]) === (+search.value);
+            }
+            else if(search.type==='ci'){
+                return e[search.columnName].toLowerCase().indexOf(search.value.toLowerCase()) > -1;
+            }
+            else if(search.type === 'cs'){
+                return e[search.columnName].indexOf(search.value) > -1;                 
+            }
+            return true;
+        })
+        setattendanceData(data);
+        setHeader ([...headers])
+    }
     return (
         <div className="container-xxl position-relative bg-white d-flex p-0">
             <div className="sidebar pe-4 pb-3">
@@ -285,11 +301,11 @@ const fullData = [
                                             headers.map((e) => {
                                                 if(e.issortable === true ){
                                                     return (                                                        
-                                                        <th ele-name={e.columnName} ele-type={e.type} onClick={sortData}>{e.displayName}</th>
+                                                        <th onClick={ () => {sortData(e)}}>{e.displayName}</th>
                                                     )
                                                 }
                                                 return (
-                                                    <th name-ele={e.columnName}>{e.displayName}</th>
+                                                    <th>&nbsp</th>
                                                 )
                                             })
                                         }
@@ -304,7 +320,9 @@ const fullData = [
                                                         {
                                                             e?.searchtype?.map((s)=>{                                                               
                                                                return(
-                                                               <input ele-value={s} onChange={ (eve)=>{searchData(s, eve.target.value)}} />
+                                                               <input className='search' ele-value={s} 
+                                                               onChange={(event:any)=>{
+                                                                filterData(e,s,event?.target?.value)}} type='text' />
                                                              )})                                                            
                                                         }
                                                        </th>
