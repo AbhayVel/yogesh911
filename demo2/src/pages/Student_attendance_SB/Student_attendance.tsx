@@ -1,127 +1,218 @@
 import React, { useState } from 'react';
+import { filterCommon, convertDate } from '../../common/utilities-functions';
 
 export const StudentAttendance = () => {
-
+    const [fullData, setFullData] = useState([{
+                id: 1,
+                name: 'Komal',
+                aDate: '01-01-2022',
+                status: "p",
+                teachersNote: "sick",
+                participation: 100    
+            },
+            {
+                id: 2,
+                name: 'Nivant',
+                aDate: '01-02-2022',
+                status: "p",
+                teachersNote: "sick",
+                participation: 100     
+            },
+            {
+                id: 3,
+                name: 'Rajit',
+                aDate: '01-02-2022',
+                status: "p",
+                teachersNote: "AAA",
+                participation: 100    
+            },
+            {
+                id: 4,
+                name: 'sanket',
+                aDate: '01-02-2022',
+                status: "p",
+                teachersNote: "sick",
+                participation: 100      
+            },
+            {
+                id: 5,
+                name: 'Yogesh',
+                aDate: '02-02-2022',
+                status: "p",
+                teachersNote: "sick",
+                participation: 100     
+            },
+            {
+                id: 6,
+                name: 'Akash',
+                aDate: '06-02-2022',
+                status: "a",
+                teachersNote: "ZZZ",
+                participation: 10
+            },
+            {
+                id: 8,
+                name: 'Zara',
+                aDate: '06-02-2022',
+                status: "a",
+                teachersNote: "all ok",
+                participation: 70
+            
+        }
+    ])
     const [headers, setHeader] = useState([
         {
             displayName : "Id",
             columnName : "id",
             issortable : true,
-            type : 'num'
+            isserchable : true,
+            type : 'num',
+            searchtype : [
+                {
+                    columnName : 'id',
+                    value:'',
+                    type: 'num'
+                }
+        ]                   
         },
         {
             displayName : "Student Name",
             columnName : "name",
             issortable : true,
-            type : 'ci'
+            isserchable : true,
+            type : 'ci',
+            searchtype : [
+                {
+                    columnName : 'name',
+                    value:'',
+                    type: 'ci'
+                }
+        ]       
         },
         {
-            displayName : "Calender",
-            columnName : "calender",
-            issortable : false,
-            type : 'date'
+            displayName : "DOJ",
+            columnName : "aDate",
+            issortable : true,
+            isserchable : false,
+            type : 'date',
+            searchtype : [
+                {
+                    columnName : 'aDate',
+                    value:'',
+                    type: 'date'
+                }
+        ]       
         },
         {
             displayName : "Status",
             columnName : "status",
             issortable : false,
-            type : 'ci'
+            isserchable : true,
+            type : 'ci',
+            searchtype : [
+                {
+                    columnName : 'status',
+                    value:'',
+                    type: 'ci'
+                }
+        ]       
         },
         {
             displayName : "Teachers Note",
             columnName : "teachersNote",
             issortable : true,
-            type : 'ci'
+            isserchable : true,
+            type : 'cs',
+            searchtype : [
+                {
+                    columnName : 'teachersNote',
+                    value:'',
+                    type: 'cs'
+                }
+        ]       
         },
         {
             displayName : "Participation",
             columnName : "participation",
             issortable : true,
-            type : 'num'
+            isserchable : true,
+            type : 'num',
+            searchtype : [
+                {
+                    columnName : 'id',
+                    value:'',
+                    type: 'num'
+                }
+        ]       
         }
     ])
     const [attendanceData, setattendanceData] = useState([
-        {
-            id: 1,
-            name: 'Komal',
-            aDate: '01-01-2022',
-            status: "p",
-            teachersNote: "sick",
-            participation: 100
-        },
-        {
-            id: 2,
-            name: 'Nivant',
-            aDate: '01-02-2022',
-            status: "p",
-            teachersNote: "sick",
-            participation: 100
-        },
-        {
-            id: 3,
-            name: 'Rajit',
-            aDate: '01-02-2022',
-            status: "p",
-            teachersNote: "AAA",
-            participation: 100
-        },
-        {
-            id: 4,
-            name: 'sanket',
-            aDate: '01-02-2022',
-            status: "p",
-            teachersNote: "sick",
-            participation: 100
-        },
-        {
-            id: 5,
-            name: 'Yogesh',
-            aDate: '02-02-2022',
-            status: "p",
-            teachersNote: "sick",
-            participation: 100
-        },
-        {
-            id: 6,
-            name: 'Akash',
-            aDate: '06-02-2022',
-            status: "a",
-            teachersNote: "ZZZ",
-            participation: 10
-        },
-        {
-            id: 8,
-            name: 'Zara',
-            aDate: '06-02-2022',
-            status: "a",
-            teachersNote: "all ok",
-            participation: 70
-        },
+        ...fullData
     ])
+
     const [sortOrder,setSortOrder] = useState(1);
 
 
-    const sortData = (e:any) =>{
-        const target : any = e?.target;
-        const columnName = target.getAttribute("ele-name");
-        const columnType = target.getAttribute("ele-type");
-
+    const sortData = (data:any) =>{
+        const columnName = data?.columnName;
+        const columnType = data.type;
         setSortOrder (sortOrder * -1)
-       // alert(columnName);
         attendanceData.sort((a:any,b:any) =>{
             if (columnType === 'ci'){
             return a[columnName].toUpperCase() > b[columnName].toUpperCase() ? -1 * sortOrder :1 * sortOrder;
-
+            }else if (columnType === 'date') {
+                return convertDate(a[columnName]) > convertDate(b[columnName]) ? -1 * sortOrder : 1 * sortOrder;
             }
             
             return a[columnName] > b[columnName] ? -1 * sortOrder :1 * sortOrder;
         })
         const d = [...attendanceData];
-        setattendanceData(d);
-
-
+        setattendanceData(d);       
         
-            
+    }
+    const searchData = (s:any, value:any) =>{
+        
+                        const columnName = s?.columnName;
+                        const columnType = s.type;
+                        const FilterStudent = fullData.filter((a:any) => {
+                            if (value === "" || value === undefined || value === null){
+                                return true;
+                            }
+                            else if(columnType === "cs"){
+                                return a[columnName].indexOf(value) > -1;
+                            }
+                            else if(columnType === "ci"){
+                                debugger
+                                return a[columnName]?.toLowerCase()?.indexOf(value.toLowerCase()) > -1;
+                            }
+                            else if(columnType === "num"){
+                                return +a[columnName] === +value;
+                            }                   
+                            return (a[columnName])=== (value);
+                        })  
+                        
+                        setattendanceData(FilterStudent)
+                }
+
+    const filterData = (header:any , search:any , val:any)=>{
+        search.value= val;
+        const data = fullData.filter((e:any)=>{
+            if(search.value === ""){                
+                return true                
+            }
+            else if(search.type==='num'){
+                return (+e[search.columnName]) === (+search.value);
+            }
+            else if(search.type==='ci'){
+                return e[search.columnName].toLowerCase().indexOf(search.value.toLowerCase()) > -1;
+            }
+            else if(search.type === 'cs'){
+                return e[search.columnName].indexOf(search.value) > -1;                 
+            }
+            return true;
+        })
+        setattendanceData(data);
+        setHeader ([...headers])
     }
     return (
         <div className="container-xxl position-relative bg-white d-flex p-0">
@@ -205,16 +296,41 @@ export const StudentAttendance = () => {
                         <div className="table-responsive">
                             <table className="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
-                                    <tr className="text-dark">
+                                <tr className="text-dark">
                                         {
                                             headers.map((e) => {
                                                 if(e.issortable === true ){
-                                                    return (
-                                                        <th ele-name={e.columnName} ele-type={e.type} onClick={sortData}>{e.displayName}</th>
+                                                    return (                                                        
+                                                        <th onClick={ () => {sortData(e)}}>{e.displayName}</th>
                                                     )
                                                 }
                                                 return (
-                                                    <th name-ele={e.columnName}>{e.displayName}</th>
+                                                    <th>&nbsp</th>
+                                                )
+                                            })
+                                        }
+
+                                    </tr>
+                                    <tr className="text-dark">
+                                        {
+                                            headers.map((e) => {
+                                                if(e.isserchable === true ){
+                                                    return (
+                                                       <th>
+                                                        {
+                                                            e?.searchtype?.map((s)=>{                                                               
+                                                               return(
+                                                               <input className='search' ele-value={s} 
+                                                               onChange={(event:any)=>{
+                                                                filterData(e,s,event?.target?.value)}} type='text' />
+                                                             )})                                                            
+                                                        }
+                                                       </th>
+                                                    )
+                                                }
+                                                return (
+                                                    <input type="text" value="test2"/>
+                                                   
                                                 )
                                             })
                                         }

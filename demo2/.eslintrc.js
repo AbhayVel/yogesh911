@@ -37,10 +37,17 @@ module.exports = {
   rules: {
     'import/no-cycle': ['error', { maxDepth: 1 }],
     'import/order': ['error', { alphabetize: { order: 'asc' } }],
-      'import/prefer-default-export': 'off',
-      "no-else-return": 'off',
-      'no-debugger': 'off',
-    'no-continue':'off',
+    'import/prefer-default-export': 'off',
+    "no-else-return": 'off',
+    'no-debugger': 'off',
+    'no-continue': 'off',
+    'anchor-is-valid': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'react/jsx-no-comment-textnodes': 'off',
+    'no-nested-ternary':'off',
+
     'no-param-reassign': [
       'error',
       // Immer - https://github.com/immerjs/immer/issues/189#issuecomment-703083451
