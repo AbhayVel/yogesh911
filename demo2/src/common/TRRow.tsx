@@ -6,7 +6,7 @@ import React, { Children } from 'react';
 
 export const TRRow = (props: any) => {
  const {headers,data,children }=props;
-debugger;
+
  return (
     <tr>
         

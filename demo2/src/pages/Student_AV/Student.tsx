@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { TableGrid } from '../../common/TableGrid';
-import { filterCommon, convertDate } from '../../common/utilities-functions';
+import { filterCommon, convertDate, sortCommon, gridCommon } from '../../common/utilities-functions';
 
  
 
 export const Student = () => {
 
+    const [pageConfig,setPageConfig]=useState({
+        pages: [
+
+            1,2,3,4
+        ],
+        currentPage: 1,
+        rowPerPage: 2,
+        totalPage: 0
+    })
     const [headers, setHeader] = useState([
         {
             isShow: false,
@@ -154,39 +163,49 @@ export const Student = () => {
         },
 
     ])
+
+
     const [studentData, setStudentData] = useState([...fullData])
     const [sortOrder, setSortOrder] = useState(1);
+    const [columnName, setcolumnName] = useState('id');
+    const [columnType, setColumnType] = useState('num');
     const sortData = (data: any) => {
-        const columnName = data?.columnName;
-        const columnType = data?.type;
-         
+        debugger;
+        setcolumnName(data?.columnName);
+        setColumnType(data?.type);         
         setSortOrder(sortOrder * -1);
-        studentData.sort((a: any, b: any) => {
 
-            if (columnType === 'ci') {
-                return a[columnName].toUpperCase() > b[columnName].toUpperCase() ? -1 * sortOrder : 1 * sortOrder;
-            } else if (columnType === 'date') {
-                return convertDate(a[columnName]) > convertDate(b[columnName]) ? -1 * sortOrder : 1 * sortOrder;
-            }
-                return a[columnName] > b[columnName] ? -1 * sortOrder : 1 * sortOrder;
-			 
-           
-        })
-        const d = [...studentData]
+        const rows=   gridCommon(fullData,headers,columnName,columnType,sortOrder,pageConfig);
+        const d = [...rows]
         setStudentData(d);
+        setHeader([...headers])
+        setPageConfig({...pageConfig});
 	}
     const filterData = (header: any, searchData: any, val: any) => {
-        console.log(`${header?.columnName} value is ${val}`);
         searchData.value = val;
-       
-
-        const rows: any=filterCommon(fullData,headers);
- 
-
-        setStudentData(rows);
-
+        const rows=   gridCommon(fullData,headers,columnName,columnType,sortOrder,pageConfig);
+        debugger;
+        const d = [...rows]
+        setStudentData(d);
         setHeader([...headers])
+        setPageConfig({...pageConfig});
 	}
+
+  
+  
+    const SetPagination=(e: any)=>{
+
+        if(e<1 || e>pageConfig.pages.length){
+            return;
+        }
+        pageConfig.currentPage=e;    
+        const rows=   gridCommon(fullData,headers,columnName,columnType,sortOrder,pageConfig);
+        const d = [...rows]
+        setStudentData(d);
+        setHeader([...headers])
+        setPageConfig({...pageConfig});
+
+    }
     return (
         <div className="container-xxl position-relative bg-white d-flex p-0">
             <div className="sidebar pe-4 pb-3">
@@ -284,11 +303,17 @@ export const Student = () => {
                                  </TableGrid>
                     <div className='mt-4'>
                     <ul className="pagination">
-                        <li className="page-item disabled"><a className="page-link" href="index.html">Previous</a></li>
-                        <li className="page-item"><a className="page-link" href="index.html">1</a></li>
-                        <li className="page-item"><a className="page-link" href="index.html">2</a></li>
-                        <li className="page-item"><a className="page-link" href="index.html">3</a></li>
-                        <li className="page-item"><a className="page-link" href="index.html">Next</a></li>
+                    <li className={pageConfig.currentPage===1 ? 'page-item disabled' : 'page-item' }><a className="page-link"  onClick={(eve)=>{ SetPagination(pageConfig.currentPage -1); eve.preventDefault();  }} href="index.html">Previous</a></li>
+                     
+                     {
+                        pageConfig.pages.map((e)=>{
+                            return (
+                                <li className={e===pageConfig.currentPage ? 'page-item active': 'page-item'}  ><a className="page-link" onClick={(eve)=>{ SetPagination(e); eve.preventDefault();  }} href="index.html">{e}</a></li>
+                            );
+                        })
+                     }
+                       
+                        <li className={pageConfig.currentPage===pageConfig.pages.length ? 'page-item disabled' : 'page-item' }><a className="page-link" onClick={(eve)=>{ SetPagination(pageConfig.currentPage +1); eve.preventDefault();  }} href="index.html">Next</a></li>
                     </ul>
                     </div>
                 </div>

@@ -2,8 +2,10 @@ import React from 'react';
 import { Route, Routes as RoutesRRD } from 'react-router-dom';
 import { lazyComponent } from '../../common/utils';
 
-import { Department } from '../../pages/Student_Department_YG/Department';
+
+
 import { Teachers } from '../../pages/Student_KM/Teachers';
+
 
 
 import { StudentAttendance } from '../../pages/Student_attendance_SB/Student_attendance';
@@ -27,7 +29,7 @@ export const Routes = (): JSX.Element => (
     <Route element={<Teachers/>} path="/teachers" />
     <Route element={<Subject/>} path="/Subject" />
 
-    <Route element={<Department />} path="/department" />
+   
     <Route element={<StudentAttendance />} path="/StudentAttendance" />
     <Route element={<Accordian />} path="/Accordian" />
     <Route element={<Tab />} path="/Tab" />
