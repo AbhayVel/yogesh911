@@ -48,9 +48,9 @@ export const Tabs = (props: any) => {
 
 
 export const Tab = () => {
-    const [currentIndex,setCurrentIndex]=useState(2);
-   
-    const [tabData, setTabData] = useState([
+    
+   const currentIndex=1;
+    const tabData = [
         {
             isExpandable: true,
             isOpen: true,
@@ -75,7 +75,7 @@ export const Tab = () => {
             childIndex: 3,
             tabData: "Contact: This is some placeholder content the Contact tab's associated content."
         }
-    ])
+    ]
 
    
 
