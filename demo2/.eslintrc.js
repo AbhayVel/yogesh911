@@ -47,7 +47,7 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'react/jsx-no-comment-textnodes': 'off',
     'no-nested-ternary':'off',
-
+'react-hooks/exhaustive-deps':'off',
     'no-param-reassign': [
       'error',
       // Immer - https://github.com/immerjs/immer/issues/189#issuecomment-703083451

@@ -19,11 +19,11 @@ export const TRRow = (props: any) => {
           }  
           if(e?.customDisplay){
             return (
-              <td>{ children[0][1][e?.customDisplayIndex] }</td>
+              <td key={e.customDisplayIndex}>{ children[0][1][e?.customDisplayIndex] }</td>
           )
           }
                 return (
-                    <td>{ data[e?.columnName] }</td>
+                    <td key={e.customDisplayIndex}>{ data[e?.columnName] }</td>
                 )
          })
        }
@@ -40,9 +40,9 @@ export const TableBody = (props: any) => {
     <tbody>
 
     {
-        tableData?.map((s: any) => {
+        tableData?.map((s: any, i : number) => {
             return (
-               <TRRow headers={headers} data={s}>{children} </TRRow>
+               <TRRow key={s.columnName}  headers={headers} data={s}>{children} </TRRow>
 
             )
         })									  

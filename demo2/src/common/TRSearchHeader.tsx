@@ -9,16 +9,16 @@ export const TRSearchHeader = (props: any) => {
             headers.map((e: any) => {
                 if(e?.isShow===false){
                     return (
-                      <>&nbsp;</>
+                      <th key={e.columnName} className='hide'>&nbsp;</th>
                     );
                   }  
                 if (e?.isSearchable === true) {
                     return (
-                        <th>
+                        <th key={e.columnName}>
                             {
                                 e?.searchs?.map((s: any) => {
                                     return (
-                                        <input className="search" onChange={(event: any) => {
+                                        <input key={e.columnName+s.type} className="search" onChange={(event: any) => {
 
 
                                             filterData(e, s, event?.target?.value);
@@ -32,7 +32,7 @@ export const TRSearchHeader = (props: any) => {
                 }
 
                 return (
-                    <th>&nbsp;</th>
+                    <th key={e.columnName}>&nbsp;</th>
                 )
 
 
@@ -56,17 +56,17 @@ export const TableThead = (props: any) => {
                 headers.map((e: any) => {
                     if(e?.isShow===false){
                         return (
-                          <>&nbsp;</>
+                          <th className='hide' key={e.displayName}>&nbsp;</th>
                         );
                       }  
                     if (e.isSortable===true) {
                         return (
-                            <th   onClick={() => { sortData(e)}}>{e.displayName}</th>
+                            <th key={e.displayName}  onClick={() => { sortData(e)}}>{e.displayName}</th>
                         )
                     }
                    
                         return (
-                            <th>&nbsp;</th>
+                            <th key={e.displayName} >&nbsp;</th>
                         )
                      
                    
