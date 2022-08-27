@@ -9,6 +9,6 @@ const Header = lazyComponent('Header', import('../Header/Header'));
 export const Layout = ({ children }: PropsWithChildren<Record<string, unknown>>): JSX.Element => (
   
     <BasePage>
-    <ErrorBoundarySuspense>{children}</ErrorBoundarySuspense>
+         <ErrorBoundarySuspense>{children}</ErrorBoundarySuspense>
     </BasePage>
 );
