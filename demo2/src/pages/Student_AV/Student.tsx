@@ -1,5 +1,7 @@
 import React, { useState , useEffect} from 'react';
+import { TRTDContext } from '../../common/TRRow';
 import { TableGrid } from '../../common/TableGrid';
+
 import { filterCommon, convertDate, sortCommon, gridCommon } from '../../common/utilities-functions';
 import { StudentAddEdit } from './StudentEdit';
 
@@ -42,6 +44,8 @@ export const PopUp=(props: any)=>{
 
 export const Student = () => {
 
+
+    const [currentUser, setCurrentUser]= useState({id: 1})
     const [pageConfig,setPageConfig]=useState({
         pages: [
 
@@ -248,12 +252,22 @@ export const Student = () => {
         setPageConfig({...pageConfig});
     }
 
-    const openPopUp=()=>{
+    const openPopUp=(data: any)=>{
+        debugger;
+        setCurrentUser({...data.data});
         setIsOpenPopUp(true);
     }
     const closePopUp=()=>{
         setIsOpenPopUp(false);
     }
+
+    const onDataChange=(data: any)=>{
+        debugger;
+        setCurrentUser({...data});
+
+
+    }
+   
     return (
     <div className="container-fluid pt-4 px-4">
         <div className="bg-light text-center rounded p-4">
@@ -263,20 +277,30 @@ export const Student = () => {
                 </div>
 
                 <div>
+
+                    {
+                        JSON.stringify(currentUser)
+                    }
                     <span >Id</span><input type="text" />
                     <span >Name</span><input type="text" />
 
                     <button type="button" >Search</button>
                 </div>
 
-            {isOpenPopUp && <PopUp header="User Edit" closePopUpEvent={closePopUp}><StudentAddEdit /></PopUp>}    
+            {isOpenPopUp && <PopUp header="User Edit" closePopUpEvent={closePopUp}><StudentAddEdit currentUser={currentUser}  onDataChange={onDataChange} /></PopUp>}    
            <TableGrid headers={headers} filterData={filterData} sortData={sortData} tableData={studentData} >
                    <input className="form-check-input" type="checkbox" />
-                  <div>
-                    <a className="btn btn-sm btn-primary" onClick={(eve)=>{ openPopUp(); eve.preventDefault();  }} href="index.html">Edit</a>
-                   <a className="btn btn-sm btn-danger" href="index.html">Delete</a>
-     
-                  </div>
+                   <TRTDContext.Consumer>
+               {
+                (value: any)=>{
+                return (    <div>
+                    <a className="btn btn-sm btn-primary" onClick={(eve)=>{ openPopUp(value); eve.preventDefault();  }} href="index.html">Edit</a>
+                    <a className="btn btn-sm btn-danger" href="index.html">Delete</a>     
+                   </div>
+                )
+                }
+               }
+            </TRTDContext.Consumer>
             </TableGrid>
 
 

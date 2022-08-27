@@ -1,6 +1,6 @@
 import React, { Children } from 'react';
 
-
+export const TRTDContext=React.createContext(null);
 
 
 
@@ -19,7 +19,9 @@ export const TRRow = (props: any) => {
           }  
           if(e?.customDisplay){
             return (
+              <TRTDContext.Provider value={props}>
               <td key={e.customDisplayIndex}>{ children[0][1][e?.customDisplayIndex] }</td>
+              </TRTDContext.Provider>
           )
           }
                 return (

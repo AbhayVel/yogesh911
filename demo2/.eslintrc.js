@@ -48,6 +48,8 @@ module.exports = {
     'react/jsx-no-comment-textnodes': 'off',
     'no-nested-ternary':'off',
 'react-hooks/exhaustive-deps':'off',
+'eslint-disable-next-line jsx-a11y/label-has-associated-control':'off',
+'jsx-a11y/label-has-associated-control':'off',
     'no-param-reassign': [
       'error',
       // Immer - https://github.com/immerjs/immer/issues/189#issuecomment-703083451
