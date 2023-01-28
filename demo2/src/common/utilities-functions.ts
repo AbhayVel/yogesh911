@@ -31,6 +31,14 @@ export const sortCommon = (data: any,columnName: string,columnType: string,sortO
     return data;
 }
 
+
+export const GetComplexObjectValue = (objData: any, keyStr: string): string => {
+    const data = objData;
+    debugger;
+    const str = keyStr.split(".").reduce((obj, key) => obj && obj[key], data);
+    return str || "";
+}
+
 export const filterCommon=(fullData: any, headers: any)=>{
     let rows=fullData;
   
@@ -46,18 +54,18 @@ export const filterCommon=(fullData: any, headers: any)=>{
                         return true;
                     }
                     if (search.type === 'num') {
-                        return (+e[search.columnName]) === (+search.value);
+                        return (+GetComplexObjectValue(e,search.columnName)) === (+search.value);
                     } else if (search.type === 'ci') {
-                        return e[search.columnName]?.toLowerCase()?.indexOf(search?.value?.toLowerCase()) > -1;
+                        return GetComplexObjectValue(e, search.columnName)?.toLowerCase()?.indexOf(search?.value?.toLowerCase()) > -1;
                     } else if (search.type === 'cs') {
-                        return e[search.columnName].indexOf(search.value) > -1;
+                        return GetComplexObjectValue(e, search.columnName).indexOf(search.value) > -1;
                     }  else if (search.type === 'GteNum') {
                   
-                        return (+e[search.columnName]) >= (+search.value);
+                        return (+GetComplexObjectValue(e, search.columnName)) >= (+search.value);
                     }    else if (search.type === 'LteNum') {
-                        return (+e[search.columnName]) <= (+search.value);
+                        return (+GetComplexObjectValue(e, search.columnName)) <= (+search.value);
                     }         
-                    return (e[search.columnName]) === (search.value);
+                    return (GetComplexObjectValue(e, search.columnName)) === (search.value);
                 
              })
         }

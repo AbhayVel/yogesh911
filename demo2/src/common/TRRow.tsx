@@ -1,4 +1,5 @@
 import React, { Children } from 'react';
+import { GetComplexObjectValue } from './utilities-functions';
 
 export const TRTDContext=React.createContext(null);
 
@@ -25,7 +26,7 @@ export const TRRow = (props: any) => {
           )
           }
                 return (
-                    <td key={e.customDisplayIndex}>{ data[e?.columnName] }</td>
+                    <td key={e.customDisplayIndex}>{GetComplexObjectValue( data,e?.columnName)}</td>
                 )
          })
        }

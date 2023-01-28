@@ -88,7 +88,7 @@ export const Student = () => {
         },
         {
             displayName: "Full Name",
-            columnName: "name",
+            columnName: "user.first",
             isSortable: true,
             type: 'ci',
             isSearchable: true,
@@ -168,35 +168,45 @@ export const Student = () => {
     const [fullData, setFullData] = useState([
         {
             id: 1,
-            name: 'Komal',
+            user: {
+                "first": 'Komal'
+            },
             subject: 'Javascript',
             fees: 21000,
             doj: '01-03-2022'
         },
         {
             id: 2,
-            name: 'Nivant',
+            user: {
+                "first": 'nivant'
+            },
             subject: 'React',
             fees: 25000,
             doj: '01-02-2021'
         },
         {
             id: 3,
-            name: 'Rajit',
+            user: {
+                first: 'Ranjit'
+            },
             subject: 'Angular',
             fees: 29000,
             doj: '13-02-2022'
         },
         {
             id: 4,
-            name: 'sanket',
+            user: {
+                "first": 'sanket'
+            },
             subject: 'MVC',
             fees: 29000,
             doj: '15-02-2022'
         },
         {
             id: 5,
-            name: 'Yogesh',
+            user: {
+                "first": 'yogesh'
+            },
             subject: 'java',
             fees: 39000,
             doj: '02-02-2022'
@@ -278,9 +288,7 @@ export const Student = () => {
 
                 <div>
 
-                    {
-                        JSON.stringify(currentUser)
-                    }
+                    
                     <span >Id</span><input type="text" />
                     <span >Name</span><input type="text" />
 

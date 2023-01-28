@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <script>
+        function showData(fun) {//
+            alert(fun());
+        }
+
+        function GetShow(text) {
+            
+        
+       return function (text2) {
+            alert(text + text2);
+            }
+
+        }
+
+
+        var showHiAll = GetShow("Hi ALl");
+
+        var showGoodMorning = GetShow("Good Morning ");
+
+        showHiAll("abhay");
+        showGoodMorning("abhay");
+
+
+        showHiAll("Hi All ", "Sanket");
+
+        showGoodMorning("Sanket");
+
+
+        showHiAll("Yogesh");
+
+        showGoodMorning("Ranjeet");
+
+
+
+       
+        showData("Good Morning ", "Yogesh");
+
+        showData("Good Morning ", "Ranjeet");
+    </script>
+</head>
+<body>
+
+</body>
+</html>
