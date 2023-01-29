@@ -1,32 +1,35 @@
 import React, { useState } from 'react';
+import { Collapsable, CollapsableBody } from '../../common/AccordianC';
 
 export const Accordian = () => {
     const [isActive, setActive] = useState (false)
     const [ accData, setAccData ] = useState ([
         {
+            key: "1",
             title: 'title 1',
             isExpandable: true,
             isOpen: true,
             isAlwaysOpen : true,
-            body : 'body 1 Anim pariatur cliche reprehenderit, '
+            body : null
         },
         {
+            key: "2",
             title: 'title 2',
             isExpandable: true,
             isOpen: false,
             isAlwaysOpen : false,
-            body : 'body 2 Anim pariatur cliche reprehenderit, '
-        },  {
+            body : null
+        }, {
+            key: "3",
             title: 'title 3',
             isExpandable: true,
             isOpen: false,
             isAlwaysOpen : false,
-            body : 'body 3 Anim pariatur cliche reprehenderit,'
+            body : null
         }
     ])
     const isCollpsBtn = (e : any) =>{
-        debugger
-        accData.forEach(element => {
+         accData.forEach(element => {
             if (element === e ){
                 // e.isOpen = !e.isOpen
                 if(!e.isOpen){
@@ -48,27 +51,22 @@ export const Accordian = () => {
 
     return (
 
-        <div className="accordion" id="accordionExample">         
-              {
-               accData.map((e)=> {
-                    return (
-                        <div className="card">        
-                        <div className="card-header" id="headingOne">
-                            <h2 className="mb-0">
-                                <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" onClick={(eve: any) => { isCollpsBtn(e); eve?.preventDefault() }}>
-                                   { e.title}
-                                </button>
-                            </h2>
-                        </div>        
-                        <div id="collapseOne" className ={ e.isOpen? 'collapse show' : 'collapse'} aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div className="card-body">
-                               { e.body}
-                            </div>
-                        </div>
-                    </div>
-                    )
-               })          
-              }
-        </div>
+        <Collapsable accData={accData} setAccData={setAccData} >
+
+            <CollapsableBody key="1" >  <div> I am need to show in first
+                <table>
+                    <tr>
+                        <th>Header 1 </th>
+                    </tr>
+                    <tr>
+                        <td>Ranjit</td>
+
+                        </tr>
+                    </table>
+
+            </div></CollapsableBody>
+            <CollapsableBody key="3" >  <div> I am need to show in Third </div></CollapsableBody>
+
+        </Collapsable>
     )
 }
